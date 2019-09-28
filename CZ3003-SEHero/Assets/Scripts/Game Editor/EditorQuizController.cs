@@ -120,17 +120,20 @@ public class EditorQuizController : MonoBehaviour
     public void Publish()
     {
         data = new QuizData();
-        data.title = m_title.text;
-        data.description = m_description.text;
+        data.gameData = new GameData();
+        data.gameData.type = GameData.GameType.Quiz;
+        data.gameData.title = m_title.text;
+        data.gameData.description = m_description.text;
         List<QuestionValues> list = new List<QuestionValues>();
         foreach(GameObject go in m_questionList)
         {
             list.Add(go.GetComponent<QuizPrefabController>().GetValues());
             //Debug.Log(go.GetComponent<QuizPrefabController>().GetValues().answer1);
         }
-        data.questionValues = list;
+        data.values = list;
 
         string json = JsonUtility.ToJson(data);
+        PlayerPrefs.SetString("level", json);
         Debug.Log(json);
     }
 }

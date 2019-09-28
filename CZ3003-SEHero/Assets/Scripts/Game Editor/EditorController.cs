@@ -34,8 +34,4 @@ public class EditorController : MonoBehaviour
         m_menuObjects[(int)m_state].SetActive(true);
     }
 
-    public void SetGameType(int type)
-    {
-        m_gameType = type;
-    }
 }

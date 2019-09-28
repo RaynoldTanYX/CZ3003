@@ -18,7 +18,6 @@ public struct QuestionValues
 [System.Serializable]
 public class QuizData
 {
-    public string title;
-    public string description;
-    public List<QuestionValues> questionValues;
+    public GameData gameData;
+    public List<QuestionValues> values;
 }
