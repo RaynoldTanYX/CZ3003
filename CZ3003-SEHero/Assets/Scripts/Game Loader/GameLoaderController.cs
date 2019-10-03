@@ -33,12 +33,12 @@ public class GameLoaderController : MonoBehaviour
                 break;
             case (int)GameData.GameType.Crossword:
                 Debug.Log("Loading Spot");
-                go = Instantiate(m_gameQuizPrefab);
+                go = Instantiate(m_gameCrosswordPrefab);
                 Debug.Log("Spot Loaded");
                 break;
             case (int)GameData.GameType.Spot:
                 Debug.Log("Loading Spot");
-                go = Instantiate(m_gameQuizPrefab);
+                go = Instantiate(m_gameSpotPrefab);
                 Debug.Log("Spot Loaded");
                 break;
             default:
