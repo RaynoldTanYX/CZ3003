@@ -9,24 +9,24 @@ public class QuizPrefabController : MonoBehaviour
 {
     private EditorQuizController m_editorQuizController;
     [SerializeField]
-    private Text m_text;
+    protected Text m_text;
 
-    private QuestionValues m_qnValues;
+    protected QuestionValues m_qnValues;
 
     [SerializeField]
-    private InputField question;
+    protected InputField question;
     [SerializeField]
-    private InputField answer1;
+    protected InputField answer1;
     [SerializeField]
-    private InputField answer2;
+    protected InputField answer2;
     [SerializeField]
-    private InputField answer3;
+    protected InputField answer3;
     [SerializeField]
-    private InputField answer4;
+    protected InputField answer4;
     [SerializeField]
-    private Dropdown correct;
+    protected Dropdown correct;
 
-    public void SetEditorQuizController(EditorQuizController editorQuizController)
+    public virtual void SetEditorCrosswordController(EditorQuizController editorQuizController)
     {
         m_editorQuizController = editorQuizController;
     }
@@ -38,12 +38,12 @@ public class QuizPrefabController : MonoBehaviour
         m_text.text = gameObject.name;
 
     }
-    public void Remove()
+    public virtual void Remove()
     {
         m_editorQuizController.RemoveQuestion(m_qnValues.index);
     }
 
-    public void Move(bool down)
+    public virtual void Move(bool down)
     {
         m_editorQuizController.MoveQuestion(m_qnValues.index, down);
     }
@@ -54,7 +54,7 @@ public class QuizPrefabController : MonoBehaviour
         return m_qnValues;
     }
 
-    public void UpdateValues()
+    public virtual void UpdateValues()
     {
         m_qnValues.question = question.text;
         m_qnValues.answer1 = answer1.text;

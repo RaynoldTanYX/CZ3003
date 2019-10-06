@@ -7,35 +7,35 @@ public class EditorQuizController : MonoBehaviour
 {
 
     [SerializeField]
-    private GameObject m_questionPrefab;
+    protected GameObject m_questionPrefab;
 
     [SerializeField]
-    private Transform m_questionParent;
-    private List<GameObject> m_questionList;
+    protected Transform m_questionParent;
+    protected List<GameObject> m_questionList;
 
     [SerializeField]
-    private RectTransform m_contentTransform;
+    protected RectTransform m_contentTransform;
 
     [SerializeField]
-    private InputField m_title;
+    protected InputField m_title;
     [SerializeField]
-    private InputField m_description;
+    protected InputField m_description;
 
     [SerializeField]
-    private QuizData data;
+    protected QuizData data;
 
     private void Start()
     {
         m_questionList = new List<GameObject>();
     }
-    public void AddQuestion()
+    public virtual void AddQuestion()
     {
         //instantiate object
         GameObject newQuestion = Instantiate(m_questionPrefab);
         //set parent
         newQuestion.transform.SetParent(m_questionParent);
         //set reference to this gameObject
-        newQuestion.GetComponent<QuizPrefabController>().SetEditorQuizController(this);
+        newQuestion.GetComponent<QuizPrefabController>().SetEditorCrosswordController(this);
         //add to list
         m_questionList.Add(newQuestion);
         //update content size fitter (work-around)
@@ -44,7 +44,7 @@ public class EditorQuizController : MonoBehaviour
         UpdateIndexes();
     }
 
-    IEnumerator UpdateContentSizeFitter()
+    public IEnumerator UpdateContentSizeFitter()
     {
         yield return new WaitForFixedUpdate();
         //Canvas.ForceUpdateCanvases();
@@ -107,7 +107,7 @@ public class EditorQuizController : MonoBehaviour
         }
     }
 
-    public void UpdateIndexes()
+    public virtual void UpdateIndexes()
     {
         int index = 0;
         foreach (GameObject go in m_questionList)
@@ -117,7 +117,7 @@ public class EditorQuizController : MonoBehaviour
         }
     }
 
-    public void Publish()
+    public virtual void Publish()
     {
         data = new QuizData();
         data.gameData = new GameData();
