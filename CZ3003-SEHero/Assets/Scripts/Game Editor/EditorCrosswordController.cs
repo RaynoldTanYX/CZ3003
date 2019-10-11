@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class EditorCrosswordController : EditorQuizController
 {
-    
     private void Start()
     {
         //m1_questionList = new List<GameObject>();
@@ -55,6 +54,8 @@ public class EditorCrosswordController : EditorQuizController
 
         string json = JsonUtility.ToJson(data);
         PlayerPrefs.SetString("level", json);
+        //dbManager.SaveLevelTest(m_title.text, "0" , json);
+        //Debug.Log("ran");
         Debug.Log(json);
     }
 }

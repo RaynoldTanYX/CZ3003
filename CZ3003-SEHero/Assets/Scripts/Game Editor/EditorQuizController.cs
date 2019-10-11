@@ -24,6 +24,12 @@ public class EditorQuizController : MonoBehaviour
     [SerializeField]
     protected QuizData data;
 
+    [SerializeField]
+    protected DatabaseManager dbManager;
+
+    [SerializeField]
+    protected EditorController ec;
+
     private void Start()
     {
         m_questionList = new List<GameObject>();
@@ -134,6 +140,13 @@ public class EditorQuizController : MonoBehaviour
 
         string json = JsonUtility.ToJson(data);
         PlayerPrefs.SetString("level", json);
+        StartCoroutine(dbManager.SaveLevel(m_title.text, "0" , json, PublishCallback));
+        Debug.Log("ran");
         Debug.Log(json);
+    }
+    
+    private void PublishCallback(bool success) {
+        Debug.Log(success);
+        ec.ChangeState(0);
     }
 }
