@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class TwitterManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    string twitter_address = "http://twitter.com/intent/tweet";
+    string twitter_language = "en";
+    string textToDisplay = "Hey Guys!! New Level Created!! Check it out.";
 
-    // Update is called once per frame
-    void Update()
+    public void shareOnTwitter()
     {
-        
+        Application.OpenURL(twitter_address = "?text=" + WWW.EscapeURL(textToDisplay) + ";lang=" + WWW.EscapeURL(twitter_language));
     }
 }
