@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class LoginManager : MonoBehaviour
 {
+
     public InputField emailField;
     public InputField passwordField;
     public MainMenuController mc;
@@ -22,9 +23,8 @@ public class LoginManager : MonoBehaviour
 
     private void LoginCallback(bool success, string username) {
         if(success) {
-            PlayerPrefs.SetString("username", username);
+            GlobalVariables.username = username;
             mc.ChangeState(1);
-            welcomeBackText.text = "Welcome back, " + username;
         }
     }
 }
