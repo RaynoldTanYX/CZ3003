@@ -5,49 +5,29 @@ using UnityEngine.UI;
 
 [System.Serializable]
 
-public class CrosswordPrefabController : MonoBehaviour
+public class CrosswordPrefabController : QuizPrefabController
 {
     private EditorCrosswordController m_editorCrosswordController;
-    [SerializeField]
-    protected Text m_text;
-
-    protected QuestionValuesCrossword m_qnValues;
-
-    [SerializeField]
-    protected InputField question;
-    [SerializeField]
-    protected InputField answer;
+    
 
     public void SetEditorCrosswordController(EditorCrosswordController editorCrosswordController)
     {
         m_editorCrosswordController = editorCrosswordController;
     }
 
-    public void SetIndex(int index)
-    {
-        m_qnValues.index = index;
-        gameObject.name = "Question #" + (index + 1);
-        m_text.text = gameObject.name;
-    }
-    public void Remove()
+    public override void Remove()
     {
         m_editorCrosswordController.RemoveQuestion(m_qnValues.index);
     }
 
-    public void Move(bool down)
+    public override void Move(bool down)
     {
         m_editorCrosswordController.MoveQuestion(m_qnValues.index, down);
     }
 
-    public QuestionValuesCrossword GetValues()
-    {
-        UpdateValues();
-        return m_qnValues;
-    }
-
-    public void UpdateValues()
+    public override void UpdateValues()
     {
         m_qnValues.question = question.text;
-        m_qnValues.answer = answer.text;
+        m_qnValues.answer1 = answer1.text;
     }
 }

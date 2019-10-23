@@ -858,7 +858,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3532717037188932481}
+      - m_Target: {fileID: 0}
         m_MethodName: Remove
         m_Mode: 1
         m_Arguments:
@@ -1004,7 +1004,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_text: {fileID: 2094225556572947524}
   question: {fileID: 2094225556245073431}
-  answer: {fileID: 2094225556237566019}
+  answer1: {fileID: 2094225556237566019}
+  answer2: {fileID: 0}
+  answer3: {fileID: 0}
+  answer4: {fileID: 0}
+  correct: {fileID: 0}
 --- !u!222 &1313848628920049978
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1198,7 +1202,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3532717037188932481}
+      - m_Target: {fileID: 0}
         m_MethodName: Move
         m_Mode: 6
         m_Arguments:
@@ -1391,7 +1395,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3532717037188932481}
+      - m_Target: {fileID: 0}
         m_MethodName: Move
         m_Mode: 6
         m_Arguments:

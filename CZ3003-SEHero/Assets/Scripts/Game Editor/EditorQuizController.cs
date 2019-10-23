@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class EditorQuizController : MonoBehaviour
 {
+
     [SerializeField]
     protected GameObject m_questionPrefab;
 
@@ -33,7 +34,7 @@ public class EditorQuizController : MonoBehaviour
     {
         m_questionList = new List<GameObject>();
     }
-    public void AddQuestion()
+    public virtual void AddQuestion()
     {
         //instantiate object
         GameObject newQuestion = Instantiate(m_questionPrefab);
@@ -61,7 +62,6 @@ public class EditorQuizController : MonoBehaviour
         if (index >= 0 && index < m_questionList.Count)
         {
             Destroy(m_questionList[index]);
-            m_questionList.Remove(m_questionList[index]);
             Debug.Log("Question removed: " + index);
             //update indexes of questions
             UpdateIndexes();
@@ -113,7 +113,7 @@ public class EditorQuizController : MonoBehaviour
         }
     }
 
-    public void UpdateIndexes()
+    public virtual void UpdateIndexes()
     {
         int index = 0;
         foreach (GameObject go in m_questionList)
@@ -123,7 +123,7 @@ public class EditorQuizController : MonoBehaviour
         }
     }
 
-    public void Publish()
+    public virtual void Publish()
     {
         data = new QuizData();
         data.gameData = new GameData();
@@ -131,7 +131,7 @@ public class EditorQuizController : MonoBehaviour
         data.gameData.title = m_title.text;
         data.gameData.description = m_description.text;
         List<QuestionValues> list = new List<QuestionValues>();
-        foreach (GameObject go in m_questionList)
+        foreach(GameObject go in m_questionList)
         {
             list.Add(go.GetComponent<QuizPrefabController>().GetValues());
             //Debug.Log(go.GetComponent<QuizPrefabController>().GetValues().answer1);
@@ -140,13 +140,12 @@ public class EditorQuizController : MonoBehaviour
 
         string json = JsonUtility.ToJson(data);
         PlayerPrefs.SetString("level", json);
-        StartCoroutine(dbManager.SaveLevel(m_title.text, "0", json, PublishCallback));
+        StartCoroutine(dbManager.SaveLevel(m_title.text, "0" , json, PublishCallback));
         Debug.Log("ran");
         Debug.Log(json);
     }
-
-    private void PublishCallback(bool success)
-    {
+    
+    private void PublishCallback(bool success) {
         Debug.Log(success);
         ec.ChangeState(0);
     }
