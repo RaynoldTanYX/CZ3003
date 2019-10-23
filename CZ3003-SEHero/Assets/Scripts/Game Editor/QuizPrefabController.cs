@@ -26,7 +26,7 @@ public class QuizPrefabController : MonoBehaviour
     [SerializeField]
     protected Dropdown correct;
 
-    public virtual void SetEditorCrosswordController(EditorQuizController editorQuizController)
+    public void SetEditorCrosswordController(EditorQuizController editorQuizController)
     {
         m_editorQuizController = editorQuizController;
     }
@@ -36,14 +36,13 @@ public class QuizPrefabController : MonoBehaviour
         m_qnValues.index = index;
         gameObject.name = "Question #" + (index + 1);
         m_text.text = gameObject.name;
-
     }
-    public virtual void Remove()
+    public void Remove()
     {
         m_editorQuizController.RemoveQuestion(m_qnValues.index);
     }
 
-    public virtual void Move(bool down)
+    public void Move(bool down)
     {
         m_editorQuizController.MoveQuestion(m_qnValues.index, down);
     }
@@ -54,7 +53,7 @@ public class QuizPrefabController : MonoBehaviour
         return m_qnValues;
     }
 
-    public virtual void UpdateValues()
+    public void UpdateValues()
     {
         m_qnValues.question = question.text;
         m_qnValues.answer1 = answer1.text;
