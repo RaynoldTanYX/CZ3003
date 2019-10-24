@@ -34,4 +34,8 @@ public class EditorController : MonoBehaviour
         m_menuObjects[(int)m_state].SetActive(true);
     }
 
+    public void setState(int state)
+    {
+        m_state = (EditorState)state;
+    }
 }

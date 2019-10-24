@@ -5,36 +5,41 @@ using UnityEngine.UI;
 
 public class EditorQuizController : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject m_questionPrefab;
 
     [SerializeField]
-    protected GameObject m_questionPrefab;
+    private Transform m_questionParent;
+    private List<GameObject> m_questionList;
 
     [SerializeField]
-    protected Transform m_questionParent;
-    protected List<GameObject> m_questionList;
+    private RectTransform m_contentTransform;
 
     [SerializeField]
-    protected RectTransform m_contentTransform;
+    private InputField m_title;
+    [SerializeField]
+    private InputField m_description;
 
     [SerializeField]
-    protected InputField m_title;
-    [SerializeField]
-    protected InputField m_description;
+    private QuizData data;
 
     [SerializeField]
-    protected QuizData data;
+    private DatabaseManager dbManager;
 
     [SerializeField]
-    protected DatabaseManager dbManager;
+    private EditorController ec;
 
     [SerializeField]
-    protected EditorController ec;
+    private GameObject gameSelectPanel;
+    [SerializeField]
+    private GameObject gamePanel;
 
     private void Start()
     {
         m_questionList = new List<GameObject>();
+        gameSelectPanel.SetActive(false);
     }
-    public virtual void AddQuestion()
+    public void AddQuestion()
     {
         //instantiate object
         GameObject newQuestion = Instantiate(m_questionPrefab);
@@ -62,6 +67,7 @@ public class EditorQuizController : MonoBehaviour
         if (index >= 0 && index < m_questionList.Count)
         {
             Destroy(m_questionList[index]);
+            m_questionList.Remove(m_questionList[index]);
             Debug.Log("Question removed: " + index);
             //update indexes of questions
             UpdateIndexes();
@@ -113,7 +119,7 @@ public class EditorQuizController : MonoBehaviour
         }
     }
 
-    public virtual void UpdateIndexes()
+    public void UpdateIndexes()
     {
         int index = 0;
         foreach (GameObject go in m_questionList)
@@ -123,7 +129,7 @@ public class EditorQuizController : MonoBehaviour
         }
     }
 
-    public virtual void Publish()
+    public void Publish()
     {
         data = new QuizData();
         data.gameData = new GameData();
@@ -131,7 +137,7 @@ public class EditorQuizController : MonoBehaviour
         data.gameData.title = m_title.text;
         data.gameData.description = m_description.text;
         List<QuestionValues> list = new List<QuestionValues>();
-        foreach(GameObject go in m_questionList)
+        foreach (GameObject go in m_questionList)
         {
             list.Add(go.GetComponent<QuizPrefabController>().GetValues());
             //Debug.Log(go.GetComponent<QuizPrefabController>().GetValues().answer1);
@@ -140,13 +146,21 @@ public class EditorQuizController : MonoBehaviour
 
         string json = JsonUtility.ToJson(data);
         PlayerPrefs.SetString("level", json);
-        StartCoroutine(dbManager.SaveLevel(m_title.text, "0" , json, PublishCallback));
+        StartCoroutine(dbManager.SaveLevel(m_title.text, "0", json, PublishCallback));
         Debug.Log("ran");
         Debug.Log(json);
     }
-    
-    private void PublishCallback(bool success) {
+
+    private void PublishCallback(bool success)
+    {
         Debug.Log(success);
         ec.ChangeState(0);
+    }
+
+    public void Back()
+    {
+        gamePanel.SetActive(false);
+        gameSelectPanel.SetActive(true);
+        ec.setState(0);
     }
 }
