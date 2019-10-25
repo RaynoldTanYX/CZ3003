@@ -390,6 +390,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2788440718630258875, guid: c56a0e2e22137564e9d945d29b806ed9,
+        type: 3}
+      propertyPath: m_Name
+      value: Game - Crossword
+      objectReference: {fileID: 0}
+    - target: {fileID: 2788440718630258875, guid: c56a0e2e22137564e9d945d29b806ed9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5147403968631131006, guid: c56a0e2e22137564e9d945d29b806ed9,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -454,11 +464,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: centerOfScreen
-      objectReference: {fileID: 0}
-    - target: {fileID: 2788440718630258875, guid: c56a0e2e22137564e9d945d29b806ed9,
-        type: 3}
-      propertyPath: m_Name
-      value: Game - Crossword
       objectReference: {fileID: 0}
     - target: {fileID: 2788440718630258872, guid: c56a0e2e22137564e9d945d29b806ed9,
         type: 3}

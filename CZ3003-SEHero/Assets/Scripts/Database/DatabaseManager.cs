@@ -86,4 +86,29 @@ public class DatabaseManager : MonoBehaviour
             }
         }
     }
+
+    public IEnumerator GetLevel(int world, int level, Action<bool, string, string> callback = null)
+    {
+        List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
+        formData.Add(new MultipartFormDataSection("world", world.ToString()));
+        formData.Add(new MultipartFormDataSection("level", level.ToString()));
+
+        UnityWebRequest www = UnityWebRequest.Post("http://3.1.70.5/getlevel.php", formData);
+        yield return www.SendWebRequest();
+
+        if (www.isNetworkError || www.isHttpError)
+        {
+            Debug.Log(www.error);
+        }
+        else
+        {
+            var response = JSON.Parse(www.downloadHandler.text);
+            bool success = response["success"].AsBool;
+
+            Debug.Log(response["data"]);
+
+            if(callback != null)
+                callback(success, response["name"], response["data"]);
+        }
+    }
 }
