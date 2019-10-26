@@ -35,7 +35,7 @@ public class DatabaseManager : MonoBehaviour
         }
     }
 
-    public IEnumerator SendRegistration(string username, string password, string email, Action<bool> callback = null)
+    public IEnumerator SendRegistration(string username, string password, string email, Action<bool, string> callback = null)
     {
         List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
         formData.Add(new MultipartFormDataSection("username", username));
@@ -56,10 +56,34 @@ public class DatabaseManager : MonoBehaviour
             Debug.Log(response);
 
             if(callback != null)
+                callback(success, response["message"]);
+        }
+    }
+
+    public IEnumerator CheckUsername(string username, Action<bool> callback = null)
+    {
+        List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
+        formData.Add(new MultipartFormDataSection("username", username));
+
+        UnityWebRequest www = UnityWebRequest.Post(URL + "checkusername.php", formData);
+        yield return www.SendWebRequest();
+
+        if (www.isNetworkError || www.isHttpError)
+        {
+            Debug.Log(www.error);
+        }
+        else
+        {
+            var response = JSON.Parse(www.downloadHandler.text);
+            bool success = response["success"].AsBool;
+
+            Debug.Log(response["message"]);
+
+            if (callback != null)
                 callback(success);
         }
     }
-    
+
     public IEnumerator SaveLevel(string name, string worldId, string data, Action<bool> callback = null)
     {
         List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
