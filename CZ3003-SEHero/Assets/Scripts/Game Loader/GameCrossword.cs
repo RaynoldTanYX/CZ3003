@@ -25,9 +25,13 @@ public class GameCrossword : Game
         m_crosswordData = JsonUtility.FromJson<CrosswordData>(PlayerPrefs.GetString("level"));
         Debug.Log("Number of questions: " + m_crosswordData.values.Count);
         int num = 10;
+        score = 0;
         
         cen = GameObject.Find("centerOfScreen");
         initLetters(num);
+        
+        m_gameState = GameState.Ready;
+        StartGame();
         //SplitCrossword(m_crosswordData);
         //GenerateBoard(m_crosswordLetters);
     }
@@ -64,7 +68,7 @@ public class GameCrossword : Game
         else
         {
             Debug.Log("All questions completed");
-            WinGame(); //TODO: Set win/lose condition
+            WinGame(score); //TODO: Set win/lose condition
         }
     }
 

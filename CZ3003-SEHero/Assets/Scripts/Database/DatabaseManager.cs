@@ -93,7 +93,7 @@ public class DatabaseManager : MonoBehaviour
         formData.Add(new MultipartFormDataSection("world", world.ToString()));
         formData.Add(new MultipartFormDataSection("level", level.ToString()));
 
-        UnityWebRequest www = UnityWebRequest.Post("http://3.1.70.5/getlevel.php", formData);
+        UnityWebRequest www = UnityWebRequest.Post(URL + "getlevel.php", formData);
         yield return www.SendWebRequest();
 
         if (www.isNetworkError || www.isHttpError)
@@ -109,6 +109,31 @@ public class DatabaseManager : MonoBehaviour
 
             if(callback != null)
                 callback(success, response["name"], response["data"]);
+        }
+    }
+
+    public IEnumerator SaveScore(int world, int level, string username, int score, Action<bool, string> callback = null)
+    {
+        List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
+        formData.Add(new MultipartFormDataSection("worldid", world.ToString()));
+        formData.Add(new MultipartFormDataSection("levelid", level.ToString()));
+        formData.Add(new MultipartFormDataSection("username", username));
+        formData.Add(new MultipartFormDataSection("score", score.ToString()));
+
+        UnityWebRequest www = UnityWebRequest.Post(URL + "savescore.php", formData);
+        yield return www.SendWebRequest();
+
+        if (www.isNetworkError || www.isHttpError)
+        {
+            Debug.Log(www.error);
+        }
+        else
+        {
+            var response = JSON.Parse(www.downloadHandler.text);
+            bool success = response["success"].AsBool;
+
+            if(callback != null)
+                callback(success, response["message"]);
         }
     }
 }

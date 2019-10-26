@@ -44,6 +44,9 @@ public class MainMenuController : MonoBehaviour
         //TODO: add world selection
         int world = 1;
 
+        PlayerPrefs.SetInt("worldid", world);
+        PlayerPrefs.SetInt("levelid", level);
+
         StartCoroutine(dbManager.GetLevel(world, level, GetLevelCallback));
     }
 
