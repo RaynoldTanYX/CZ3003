@@ -32,7 +32,7 @@ RectTransform:
   m_Children:
   - {fileID: 7114177375893641918}
   m_Father: {fileID: 5844890620425023569}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -207,7 +207,7 @@ GameObject:
   - component: {fileID: 1436727660068944918}
   - component: {fileID: 3404719868698406624}
   m_Layer: 0
-  m_Name: Text
+  m_Name: Text1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -368,7 +368,7 @@ RectTransform:
   m_Children:
   - {fileID: 2821860796404733636}
   m_Father: {fileID: 5844890620425023569}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -466,7 +466,7 @@ GameObject:
   - component: {fileID: 570380854674393995}
   - component: {fileID: 7553348564972024168}
   m_Layer: 0
-  m_Name: Text
+  m_Name: Text3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1002,11 +1002,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_startPanel: {fileID: 2172998347605049556}
   m_gamePanel: {fileID: 5404857466347816750}
-  m_question: {fileID: 0}
-  m_answer1: {fileID: 0}
-  m_answer2: {fileID: 0}
-  m_answer3: {fileID: 0}
-  m_answer4: {fileID: 0}
+  m_question: {fileID: 2681332143180838384}
+  m_answer1: {fileID: 3404719868698406624}
+  m_answer2: {fileID: 4243308528788491184}
+  m_answer3: {fileID: 7553348564972024168}
+  m_answer4: {fileID: 242076266388433643}
 --- !u!1 &2172998347122144964
 GameObject:
   m_ObjectHideFlags: 0
@@ -2113,7 +2113,7 @@ GameObject:
   - component: {fileID: 5297993760118680918}
   - component: {fileID: 4243308528788491184}
   m_Layer: 0
-  m_Name: Text
+  m_Name: Text2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2215,8 +2215,8 @@ RectTransform:
   - {fileID: 8337267363378603467}
   - {fileID: 6754063813223461362}
   - {fileID: 8971877498932309714}
-  - {fileID: 9141090056578562009}
   - {fileID: 8998642067192910285}
+  - {fileID: 9141090056578562009}
   - {fileID: 6437015360896299886}
   m_Father: {fileID: 2172998347122144965}
   m_RootOrder: 1
@@ -2347,7 +2347,7 @@ GameObject:
   - component: {fileID: 7926891781692855431}
   - component: {fileID: 242076266388433643}
   m_Layer: 0
-  m_Name: Text
+  m_Name: Text4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
