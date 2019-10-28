@@ -8,7 +8,7 @@ public class GameData
     public enum GameType
     {
         Quiz,//0
-        Crossword,
+        Guess,
         Spot,
         Total
     }

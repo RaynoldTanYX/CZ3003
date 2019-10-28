@@ -8,7 +8,7 @@ public class GameLoaderController : MonoBehaviour
     [SerializeField]
     private GameObject m_gameQuizPrefab;
     [SerializeField]
-    private GameObject m_gameCrosswordPrefab;
+    private GameObject m_gameGuessPrefab;
     [SerializeField]
     private GameObject m_gameSpotPrefab;
 
@@ -31,10 +31,10 @@ public class GameLoaderController : MonoBehaviour
                 go = Instantiate(m_gameQuizPrefab);
                 Debug.Log("Quiz Loaded");
                 break;
-            case (int)GameData.GameType.Crossword:
-                Debug.Log("Loading Spot");
-                go = Instantiate(m_gameCrosswordPrefab);
-                Debug.Log("Spot Loaded");
+            case (int)GameData.GameType.Guess:
+                Debug.Log("Loading Guess the Word");
+                go = Instantiate(m_gameGuessPrefab);
+                Debug.Log("Guess the Word Loaded");
                 break;
             case (int)GameData.GameType.Spot:
                 Debug.Log("Loading Spot");

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EditorCrosswordController : MonoBehaviour
+public class EditorGuessController : MonoBehaviour
 {
     [SerializeField]
     private GameObject m_questionPrefab;
@@ -48,7 +48,7 @@ public class EditorCrosswordController : MonoBehaviour
         //set parent
         newQuestion.transform.SetParent(m_questionParent);
         //set reference to this gameObject
-        newQuestion.GetComponent<CrosswordPrefabController>().SetEditorCrosswordController(this);
+        newQuestion.GetComponent<GuessPrefabController>().SetEditorGuessController(this);
         //add to list
         m_questionList.Add(newQuestion);
         //update content size fitter (work-around)
@@ -124,29 +124,29 @@ public class EditorCrosswordController : MonoBehaviour
         int index = 0;
         foreach (GameObject go in m_questionList)
         {
-            go.GetComponent<CrosswordPrefabController>().SetIndex(index);
+            go.GetComponent<GuessPrefabController>().SetIndex(index);
             index++;
         }
     }
 
     public void Publish()
     {
-        CrosswordData data = new CrosswordData();
+        GuessData data = new GuessData();
         data.gameData = new GameData();
-        data.gameData.type = GameData.GameType.Crossword;
+        data.gameData.type = GameData.GameType.Guess;
         data.gameData.title = m_title.text;
         data.gameData.description = m_description.text;
-        List<QuestionValuesCrossword> list = new List<QuestionValuesCrossword>();
+        List<QuestionValuesGuess> list = new List<QuestionValuesGuess>();
         foreach (GameObject go in m_questionList)
         {
-            list.Add(go.GetComponent<CrosswordPrefabController>().GetValues());
+            list.Add(go.GetComponent<GuessPrefabController>().GetValues());
             //Debug.Log(go.GetComponent<QuizPrefabController>().GetValues().answer1);
         }
         data.values = list;
 
         string json = JsonUtility.ToJson(data);
         PlayerPrefs.SetString("level", json);
-        StartCoroutine(dbManager.SaveLevel(m_title.text, "0", json, PublishCallback));
+        StartCoroutine(dbManager.SaveLevel(m_title.text, "1", json, PublishCallback));
         Debug.Log("ran");
         Debug.Log(json);
     }
