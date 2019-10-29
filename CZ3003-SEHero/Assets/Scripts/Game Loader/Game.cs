@@ -18,6 +18,11 @@ public class Game : MonoBehaviour
     [SerializeField]
     private GameObject m_gamePanel;
 
+    [SerializeField]
+    private DatabaseManager dbManager;
+
+    protected int score = 0;
+
     public void Start()
     {
         Time.timeScale = 0;
@@ -39,10 +44,12 @@ public class Game : MonoBehaviour
         }
     }
 
-    public void WinGame()
+    public void WinGame(int score)
     {
+        Debug.Log("wingame called");
         if (m_gameState == GameState.Playing)
         {
+            StartCoroutine(dbManager.SaveScore(PlayerPrefs.GetInt("worldid"), PlayerPrefs.GetInt("levelid"), PlayerPrefs.GetString("username"), score, SaveScoreCallback));
             m_gameState = GameState.Win;
             Debug.Log("Game state set to Win");
         }
@@ -52,16 +59,26 @@ public class Game : MonoBehaviour
         }
     }
 
-    public void LoseGame()
+    public void LoseGame(int score)
     {
         if (m_gameState == GameState.Playing)
         {
+            StartCoroutine(dbManager.SaveScore(PlayerPrefs.GetInt("worldid"), PlayerPrefs.GetInt("levelid"), PlayerPrefs.GetString("username"), score, SaveScoreCallback));
             m_gameState = GameState.Lose;
             Debug.Log("Game state set to Lose");
         }
         else
         {
             Debug.LogError("Game state is not in playing: " + m_gameState);
+        }
+    }
+
+    
+    
+    protected void SaveScoreCallback(bool success, string message) {
+        Debug.Log(message);
+
+        if(success) {
         }
     }
 }

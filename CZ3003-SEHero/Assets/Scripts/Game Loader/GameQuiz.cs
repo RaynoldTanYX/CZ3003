@@ -21,10 +21,17 @@ public class GameQuiz : Game
 
     private int m_correct;
 
+    private float timer;
+
+    private float timeLimit = 10;
+
     void Start()
     {
         m_currentQuestion = -1;
         m_quizData = JsonUtility.FromJson<QuizData>(PlayerPrefs.GetString("level"));
+        score = 0;
+        m_gameState = GameState.Ready;
+        StartGame();
     }
 
     // Update is called once per frame
@@ -39,6 +46,12 @@ public class GameQuiz : Game
                 {
                     NextQuestion();
                 }
+                timer += Time.deltaTime;
+                if (timer >= timeLimit)
+                {
+                    timer = timeLimit;
+                    NextQuestion();
+                }
                 break;
             case GameState.Win:
                 break;
@@ -49,6 +62,7 @@ public class GameQuiz : Game
 
     void NextQuestion()
     {
+        timer = 0;
         m_currentQuestion++;
         if (m_currentQuestion < m_quizData.values.Count)
         {
@@ -64,7 +78,7 @@ public class GameQuiz : Game
         else
         {
             Debug.Log("All questions completed");
-            WinGame(); //TODO: Set win/lose condition
+            WinGame(score); //TODO: Set win/lose condition
         }
     }
 
@@ -72,11 +86,12 @@ public class GameQuiz : Game
     {
         if (index + 1 == m_correct)
         {
-            NextQuestion();
+            score += 100;
         }
         else
         {
-
         }
+        
+        NextQuestion();
     }
 }

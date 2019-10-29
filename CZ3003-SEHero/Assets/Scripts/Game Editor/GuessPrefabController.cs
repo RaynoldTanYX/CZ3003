@@ -5,22 +5,22 @@ using UnityEngine.UI;
 
 [System.Serializable]
 
-public class CrosswordPrefabController : MonoBehaviour
+public class GuessPrefabController : MonoBehaviour
 {
-    private EditorCrosswordController m_editorCrosswordController;
+    private EditorGuessController m_editorGuessController;
     [SerializeField]
     private Text m_text;
 
-    private QuestionValuesCrossword m_qnValues;
+    private QuestionValuesGuess m_qnValues;
 
     [SerializeField]
     private InputField question;
     [SerializeField]
     private InputField answer;
 
-    public void SetEditorCrosswordController(EditorCrosswordController editorCrosswordController)
+    public void SetEditorGuessController(EditorGuessController editorGuessController)
     {
-        m_editorCrosswordController = editorCrosswordController;
+        m_editorGuessController = editorGuessController;
     }
 
     public void SetIndex(int index)
@@ -31,15 +31,15 @@ public class CrosswordPrefabController : MonoBehaviour
     }
     public void Remove()
     {
-        m_editorCrosswordController.RemoveQuestion(m_qnValues.index);
+        m_editorGuessController.RemoveQuestion(m_qnValues.index);
     }
 
     public void Move(bool down)
     {
-        m_editorCrosswordController.MoveQuestion(m_qnValues.index, down);
+        m_editorGuessController.MoveQuestion(m_qnValues.index, down);
     }
 
-    public QuestionValuesCrossword GetValues()
+    public QuestionValuesGuess GetValues()
     {
         UpdateValues();
         return m_qnValues;

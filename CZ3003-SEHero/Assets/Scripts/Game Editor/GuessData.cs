@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public struct QuestionValuesCrossword
+public struct QuestionValuesGuess
 {
     public int index;
     public string question;
@@ -11,8 +11,8 @@ public struct QuestionValuesCrossword
 }
 
 [System.Serializable]
-public class CrosswordData
+public class GuessData
 {
     public GameData gameData;
-    public List<QuestionValuesCrossword> values;
+    public List<QuestionValuesGuess> values;
 }
