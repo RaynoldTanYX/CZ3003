@@ -363,7 +363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e465839d16311b94d92ca7da3c70f578, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_gameQuizPrefab: {fileID: 2172998346758435378, guid: 67503eba1706ef443a2226eda0176587,
+  m_gameQuizPrefab: {fileID: 1631467690562154029, guid: 3d77a887548674376b2b28c9e355d903,
     type: 3}
   m_gameCrosswordPrefab: {fileID: 2172998346758435378, guid: 67503eba1706ef443a2226eda0176587,
     type: 3}
@@ -390,6 +390,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2788440718630258875, guid: c56a0e2e22137564e9d945d29b806ed9,
+        type: 3}
+      propertyPath: m_Name
+      value: Game - Crossword
+      objectReference: {fileID: 0}
+    - target: {fileID: 2788440718630258875, guid: c56a0e2e22137564e9d945d29b806ed9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5147403968631131006, guid: c56a0e2e22137564e9d945d29b806ed9,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -454,11 +464,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: centerOfScreen
-      objectReference: {fileID: 0}
-    - target: {fileID: 2788440718630258875, guid: c56a0e2e22137564e9d945d29b806ed9,
-        type: 3}
-      propertyPath: m_Name
-      value: Game - Crossword
       objectReference: {fileID: 0}
     - target: {fileID: 2788440718630258872, guid: c56a0e2e22137564e9d945d29b806ed9,
         type: 3}
