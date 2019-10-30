@@ -48,6 +48,11 @@ public class MainMenuController : MonoBehaviour
         m_state = (MenuState)newState;
 
         m_menuObjects[(int)m_state].SetActive(true);
+
+        if (newState == 7)
+        {
+            SceneManager.LoadScene("Editor");
+        }
     }
 
     public void NextWorld() 

@@ -68,6 +68,7 @@ public class FacebookManager : MonoBehaviour
 
     public void ShareOnFacebook()
     {
+        string app_id = "713430059179583";
         string facebookshare = "https://www.facebook.com/sharer/sharer.php?u=" + Uri.EscapeUriString("Check this level out on SEHero!\n" + PlayerPrefs.GetString("Code", "error"));
         Application.OpenURL(facebookshare);
     }

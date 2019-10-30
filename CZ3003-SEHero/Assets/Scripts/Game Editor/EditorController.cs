@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class EditorController : MonoBehaviour
@@ -25,6 +26,11 @@ public class EditorController : MonoBehaviour
 
     public void ChangeState(int newState)
     {
+        if (newState == -1)
+        {
+            SceneManager.LoadScene("MainMenu");
+            return;
+        }
         m_menuObjects[(int)m_state].SetActive(false);
 
         m_state = newState;
