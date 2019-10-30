@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Game : MonoBehaviour
 {
@@ -17,6 +18,13 @@ public class Game : MonoBehaviour
     private DatabaseManager dbManager;
 
     protected int score = 0;
+
+    [SerializeField]
+    GameObject gameElements;
+    [SerializeField]
+    GameObject gameoverElements;
+    [SerializeField]
+    Text scoreText;
 
     public void Start()
     {
@@ -45,6 +53,9 @@ public class Game : MonoBehaviour
             StartCoroutine(dbManager.SaveScore(PlayerPrefs.GetInt("worldid"), PlayerPrefs.GetInt("levelid"), PlayerPrefs.GetString("username"), score, SaveScoreCallback));
             m_gameState = GameState.Win;
             Debug.Log("Game state set to Win");
+            scoreText.text = "Score: " + score;
+            gameElements.SetActive(false);
+            gameoverElements.SetActive(true);
         }
         else
         {
