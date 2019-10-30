@@ -25,8 +25,19 @@ public class GameQuiz : Game
 
     private float timeLimit = 10;
 
+    [SerializeField]
+    private Image enemyImage;
+
+    [SerializeField]
+    private AudioClip correctSound;
+    [SerializeField]
+    private AudioClip wrongSound;
+
+    private AudioSource audio;
+
     void Start()
     {
+        audio = GetComponent<AudioSource>();
         m_currentQuestion = -1;
         m_quizData = JsonUtility.FromJson<QuizData>(PlayerPrefs.GetString("level"));
         score = 0;
@@ -87,11 +98,25 @@ public class GameQuiz : Game
         if (index + 1 == m_correct)
         {
             score += 100;
+            StartCoroutine(HitEnemy());
+            audio.PlayOneShot(correctSound);
         }
         else
-        {
+        { 
+            audio.PlayOneShot(wrongSound);
         }
         
         NextQuestion();
+    }
+
+    IEnumerator HitEnemy()
+    {
+        //flash red
+        enemyImage.color = new Color(1, 0.5f, 0.5f, 0.5f);
+        //play hit sound
+        //wait
+        yield return new WaitForSeconds(0.2f);
+        //reset color
+        enemyImage.color = new Color(1, 1, 1, 1);
     }
 }
