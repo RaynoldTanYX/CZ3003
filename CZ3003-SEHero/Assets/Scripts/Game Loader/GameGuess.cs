@@ -14,19 +14,16 @@ public class GameGuess : Game
     private InputField m_answer;
     [SerializeField]
     private Text letters;
-
     [SerializeField]
     private DatabaseManager db;
 
-    [SerializeField]
-    private GameObject m_correctPrefab;
-    [SerializeField]
-    private GameObject m_wrongPrefab;
+    private float timer;
 
-    private char[] originalStr;
-    private char[] editedStr;
-    //private ArrayList hintArr;
-    private int count = 0;
+    private float timeLimit = 30;
+
+    [SerializeField]
+    private Image enemyImage;
+
 
     [SerializeField]
     private AudioClip correctSound;
@@ -34,13 +31,15 @@ public class GameGuess : Game
     private AudioClip wrongSound;
 
     private AudioSource audio;
+
+    [SerializeField]
+    private Text timerText;
     void Start()
     {
         audio = GetComponent<AudioSource>();
         m_currentQuestion = -1;
         m_guessData = JsonUtility.FromJson<GuessData>(PlayerPrefs.GetString("level"));
-        //hintArr.Add('S');
-        int num = 10;
+        
         score = 0;
         
         m_gameState = GameState.Ready;
@@ -67,6 +66,13 @@ public class GameGuess : Game
                 {
                     NextQuestion();
                 }
+                timer += Time.deltaTime;
+                timerText.text = "Time left\n" + (int)(timeLimit - timer);
+                if (timer >= timeLimit)
+                {
+                    timer = timeLimit;
+                    NextQuestion();
+                }
                 break;
             case GameState.Win:
                 break;
@@ -75,69 +81,53 @@ public class GameGuess : Game
         }
     }
 
-    void generateQuestion()
-    {
-        originalStr = m_guessData.values[m_currentQuestion].answer.ToCharArray();
-        string output = "";
-        string temp = "";
-        for (int i=0; i< originalStr.Length; i++)
-        {
-            if (!char.IsWhiteSpace(originalStr[i]))
-            {
-                output += "_" + "\u00A0";
-                temp += originalStr[i];
-            }
-            else
-                output += " ";
-        }
-        letters.text = output;
-        editedStr = temp.ToCharArray();
-    }
-
     public void generateHint()
     {
-        /*
-        char[] s = m_crosswordData.values[m_currentQuestion].answer.ToCharArray();
-        bool check = false;
-        while (!check)
+        int maxCount = 0, count = 0;
+        char maxLetter = ' ', temp;
+        char[] s = m_guessData.values[m_currentQuestion].answer.ToCharArray();
+        string filteredStr = "";
+        for (int i=0; i<s.Length; i++)
         {
-            //int randomNum = Random.Range(0, count);
-            int randomNum = 0;
-            char hint = editedStr[randomNum];
-            if (hintArr.Count== 0)
+            if (!char.IsWhiteSpace(s[i]))
+                filteredStr += s[i];
+        }
+        char[] filteredArr = filteredStr.ToCharArray();
+
+        for (int i=0; i<filteredArr.Length; i++)
+        {
+            temp = filteredArr[i];
+            for (int j = 0; j < filteredArr.Length; j++)
             {
-                hintArr[0] = hint;
-                check = true;
-            }
-            else
-            {
-                for (int i = 0; i < hintArr.Count; i++)
+                if (i != j)
                 {
-                    if (hint == (char)hintArr[i])
-                        break;
+                    if (filteredArr[j].Equals(temp))
+                        count++;
                 }
-                check = true;
-                hintArr.Add(hint);
             }
+            if (count > maxCount)
+            {
+                maxCount = count;
+                maxLetter = temp;
+            }
+            count = 0;
         }
         string output = "";
-        for (int i = 0; i < originalStr.Length; i++)
+        for (int i = 0; i < s.Length; i++)
         {
-            if (originalStr[i].Equals(hint))
+            if (s[i].Equals(maxLetter))
             {
-                output += hint + "\u00A0";
+                output += maxLetter + "\u00A0";
             }
-            else if (!char.IsWhiteSpace(originalStr[i]))
+            else if (!char.IsWhiteSpace(s[i]))
             {
                 output += "_" + "\u00A0";
-                editedStr[count] = originalStr[i];
-                count++;
             }
             else
                 output += " ";
         }
         letters.text = output;
-        */
+        
     }
 
     void NextQuestion()
@@ -148,8 +138,7 @@ public class GameGuess : Game
             QuestionValuesGuess values = m_guessData.values[m_currentQuestion];
             m_question.text = values.question;
             Debug.Log("Question loaded: " + m_currentQuestion);
-            generateQuestion();
-            //generateHint();
+            generateHint();
         }
         else
         {
@@ -163,29 +152,29 @@ public class GameGuess : Game
     public void CheckAnswer()
     {
         Debug.Log("Check Answer");
-        if (m_answer.text == m_guessData.values[m_currentQuestion].answer) //correct
+        if (m_answer.text.ToLower().Equals(m_guessData.values[m_currentQuestion].answer.ToLower())) //correct
         {
             score += 100;
-            m_correctPrefab.SetActive(true);
-            Debug.Log("CORRECT");
-            m_answer.text = "";
+            StartCoroutine(HitEnemy());
             audio.PlayOneShot(correctSound);
         }
         else
         {
-            m_wrongPrefab.SetActive(true);
-            m_answer.text = "";
             audio.PlayOneShot(wrongSound);
         }
+        m_answer.text = "";
+        NextQuestion();
     }
 
-    public void CloseNotif(bool correct)
+    IEnumerator HitEnemy()
     {
-        if (correct)
-            m_correctPrefab.SetActive(false);
-        else
-            m_wrongPrefab.SetActive(false);
-        NextQuestion();
+        //flash red
+        enemyImage.color = new Color(1, 0.5f, 0.5f, 0.5f);
+        //play hit sound
+        //wait
+        yield return new WaitForSeconds(0.2f);
+        //reset color
+        enemyImage.color = new Color(1, 1, 1, 1);
     }
 }
 
@@ -220,5 +209,66 @@ public class GameGuess : Game
         }
     }
 
+    void generateQuestion()
+    {
+        originalStr = m_guessData.values[m_currentQuestion].answer.ToCharArray();
+        string output = "";
+        string temp = "";
+        for (int i=0; i< originalStr.Length; i++)
+        {
+            if (!char.IsWhiteSpace(originalStr[i]))
+            {
+                output += "_" + "\u00A0";
+                temp += originalStr[i];
+            }
+            else
+                output += " ";
+        }
+        letters.text = output;
+        editedStr = temp.ToCharArray();
+    }
 
+    */
+
+/*
+    char[] s = m_crosswordData.values[m_currentQuestion].answer.ToCharArray();
+    bool check = false;
+    while (!check)
+    {
+        //int randomNum = Random.Range(0, count);
+        int randomNum = 0;
+        char hint = editedStr[randomNum];
+        if (hintArr.Count== 0)
+        {
+            hintArr[0] = hint;
+            check = true;
+        }
+        else
+        {
+            for (int i = 0; i < hintArr.Count; i++)
+            {
+                if (hint == (char)hintArr[i])
+                    break;
+            }
+            check = true;
+            hintArr.Add(hint);
+        }
+    }
+    string output = "";
+    for (int i = 0; i < originalStr.Length; i++)
+    {
+        if (originalStr[i].Equals(hint))
+        {
+            output += hint + "\u00A0";
+        }
+        else if (!char.IsWhiteSpace(originalStr[i]))
+        {
+            output += "_" + "\u00A0";
+            editedStr[count] = originalStr[i];
+            count++;
+        }
+        else
+            output += " ";
+    }
+    letters.text = output;
     */
