@@ -14,11 +14,6 @@ public class Game : MonoBehaviour
     protected GameState m_gameState;
 
     [SerializeField]
-    private GameObject m_startPanel;
-    [SerializeField]
-    private GameObject m_gamePanel;
-
-    [SerializeField]
     private DatabaseManager dbManager;
 
     protected int score = 0;
@@ -34,8 +29,6 @@ public class Game : MonoBehaviour
         {
             m_gameState = GameState.Playing;
             Time.timeScale = 1;
-            m_startPanel.SetActive(false);
-            m_gamePanel.SetActive(true);
             Debug.Log("Game state set to playing");
         }
         else
