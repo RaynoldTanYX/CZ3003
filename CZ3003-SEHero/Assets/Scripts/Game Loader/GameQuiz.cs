@@ -35,7 +35,8 @@ public class GameQuiz : Game
 
     private AudioSource audio;
 
-
+    [SerializeField]
+    private Text timerText;
 
     void Start()
     {
@@ -60,6 +61,7 @@ public class GameQuiz : Game
                     NextQuestion();
                 }
                 timer += Time.deltaTime;
+                timerText.text = "Time left\n" + (int)(timeLimit - timer);
                 if (timer >= timeLimit)
                 {
                     timer = timeLimit;
