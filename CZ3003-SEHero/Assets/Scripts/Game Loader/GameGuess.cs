@@ -28,8 +28,15 @@ public class GameGuess : Game
     //private ArrayList hintArr;
     private int count = 0;
 
+    [SerializeField]
+    private AudioClip correctSound;
+    [SerializeField]
+    private AudioClip wrongSound;
+
+    private AudioSource audio;
     void Start()
     {
+        audio = GetComponent<AudioSource>();
         m_currentQuestion = -1;
         m_guessData = JsonUtility.FromJson<GuessData>(PlayerPrefs.GetString("level"));
         //hintArr.Add('S');
@@ -162,11 +169,13 @@ public class GameGuess : Game
             m_correctPrefab.SetActive(true);
             Debug.Log("CORRECT");
             m_answer.text = "";
+            audio.PlayOneShot(correctSound);
         }
         else
         {
             m_wrongPrefab.SetActive(true);
             m_answer.text = "";
+            audio.PlayOneShot(wrongSound);
         }
     }
 
