@@ -142,10 +142,10 @@ public class EditorGuessController : MonoBehaviour
         StartCoroutine(dbManager.SaveLevel(m_title.text, "1", json, PublishCallback));
         Debug.Log(json);
     }
-    protected void PublishCallback(string levelid)
+    protected void PublishCallback(int levelid)
     {
         Debug.Log("Level ID: " + levelid);
         ec.ChangeState(4);
-        ec.SetCode(levelid);
+        ec.SetCode(levelid.ToString());
     }
 }

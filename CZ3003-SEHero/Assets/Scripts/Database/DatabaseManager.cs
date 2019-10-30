@@ -84,7 +84,7 @@ public class DatabaseManager : MonoBehaviour
         }
     }
 
-    public IEnumerator SaveLevel(string name, string worldId, string data, Action<string> callback = null)
+    public IEnumerator SaveLevel(string name, string worldId, string data, Action<int> callback = null)
     {
         List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
         formData.Add(new MultipartFormDataSection("name", name));
@@ -92,7 +92,9 @@ public class DatabaseManager : MonoBehaviour
         formData.Add(new MultipartFormDataSection("data", data));
 
         UnityWebRequest www = UnityWebRequest.Post(URL + "savelevel.php", formData);
+        Debug.Log("Sending level data");
         yield return www.SendWebRequest();
+        Debug.Log("Sent!");
 
         if (www.isNetworkError || www.isHttpError)
         {
@@ -101,14 +103,13 @@ public class DatabaseManager : MonoBehaviour
         else
         {
             var response = JSON.Parse(www.downloadHandler.text);
-            bool success = response["success"].AsBool;
-
-            if (success)
+            Debug.Log(response);
+            //bool success = response["success"].AsBool;
+            //if (success)
             {
                 if (callback != null)
                 {
-                    string levelid = response["level_id"];
-                    callback(levelid);
+                    callback(response["level_id"]);
                 }
             }
         }
