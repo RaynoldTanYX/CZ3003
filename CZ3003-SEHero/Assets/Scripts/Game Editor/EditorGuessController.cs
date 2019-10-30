@@ -29,16 +29,9 @@ public class EditorGuessController : MonoBehaviour
     [SerializeField]
     private EditorController ec;
 
-    [SerializeField]
-    private GameObject gameSelectPanel;
-    [SerializeField]
-    private GameObject gamePanel;
-
-
     private void Start()
     {
         m_questionList = new List<GameObject>();
-        gameSelectPanel.SetActive(false);
     }
 
     public void AddQuestion()
@@ -154,12 +147,5 @@ public class EditorGuessController : MonoBehaviour
         Debug.Log("Level ID: " + levelid);
         ec.ChangeState(4);
         ec.SetCode(levelid.ToString());
-    }
-
-    public void Back()
-    {
-        gamePanel.SetActive(false);
-        gameSelectPanel.SetActive(true);
-        ec.ChangeState(0);
     }
 }
