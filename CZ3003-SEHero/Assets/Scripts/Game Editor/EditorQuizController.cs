@@ -151,11 +151,11 @@ public class EditorQuizController : MonoBehaviour
         Debug.Log(json);
     }
 
-    protected void PublishCallback(string levelid)
+    protected void PublishCallback(int levelid)
     {
         Debug.Log("Level ID: " + levelid);
         ec.ChangeState(4);
-        ec.SetCode(levelid);
+        ec.SetCode(levelid.ToString());
     }
 
     public void Back()
