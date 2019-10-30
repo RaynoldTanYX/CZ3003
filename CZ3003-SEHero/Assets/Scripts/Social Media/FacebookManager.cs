@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Facebook.Unity;
 using UnityEngine.UI;
+using System;
 
 public class FacebookManager : MonoBehaviour
 {
@@ -44,7 +45,7 @@ public class FacebookManager : MonoBehaviour
         FB.ShareLink(
             contentTitle: "SEHero Game Creation", 
             contentURL: null,
-            contentDescription: "Game App Created!! View them by clicking the link.",
+            contentDescription: "Check this level out on SEHero!\n" + PlayerPrefs.GetString("Code", "error"),
             callback:OnShare
             );
     }
@@ -63,5 +64,11 @@ public class FacebookManager : MonoBehaviour
         {
             Debug.Log("Share succeed");
         }
+    }
+
+    public void ShareOnFacebook()
+    {
+        string facebookshare = "https://www.facebook.com/sharer/sharer.php?u=" + Uri.EscapeUriString("Check this level out on SEHero!\n" + PlayerPrefs.GetString("Code", "error"));
+        Application.OpenURL(facebookshare);
     }
 }

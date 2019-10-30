@@ -10,6 +10,6 @@ public class TwitterManager : MonoBehaviour
 
     public void shareOnTwitter()
     {
-        Application.OpenURL(twitter_address = "?text=" + WWW.EscapeURL(textToDisplay) + ";lang=" + WWW.EscapeURL(twitter_language));
+        Application.OpenURL(twitter_address + "?text=" + WWW.EscapeURL("Check this level out on SEHero!\n" + PlayerPrefs.GetString("Code", "error")) + ";lang=" + WWW.EscapeURL(twitter_language));
     }
 }

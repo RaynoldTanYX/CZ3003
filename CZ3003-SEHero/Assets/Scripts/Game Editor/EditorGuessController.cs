@@ -147,19 +147,19 @@ public class EditorGuessController : MonoBehaviour
         string json = JsonUtility.ToJson(data);
         PlayerPrefs.SetString("level", json);
         StartCoroutine(dbManager.SaveLevel(m_title.text, "1", json, PublishCallback));
-        Debug.Log("ran");
         Debug.Log(json);
     }
-    private void PublishCallback(bool success)
+    protected void PublishCallback(string levelid)
     {
-        Debug.Log(success);
-        ec.ChangeState(0);
+        Debug.Log("Level ID: " + levelid);
+        ec.ChangeState(4);
+        ec.SetCode(levelid);
     }
 
     public void Back()
     {
         gamePanel.SetActive(false);
         gameSelectPanel.SetActive(true);
-        ec.setState(0);
+        ec.ChangeState(0);
     }
 }

@@ -151,16 +151,17 @@ public class EditorQuizController : MonoBehaviour
         Debug.Log(json);
     }
 
-    private void PublishCallback(bool success)
+    protected void PublishCallback(string levelid)
     {
-        Debug.Log(success);
-        ec.ChangeState(0);
+        Debug.Log("Level ID: " + levelid);
+        ec.ChangeState(4);
+        ec.SetCode(levelid);
     }
 
     public void Back()
     {
         gamePanel.SetActive(false);
         gameSelectPanel.SetActive(true);
-        ec.setState(0);
+        ec.ChangeState(0);
     }
 }

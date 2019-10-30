@@ -84,7 +84,7 @@ public class DatabaseManager : MonoBehaviour
         }
     }
 
-    public IEnumerator SaveLevel(string name, string worldId, string data, Action<bool> callback = null)
+    public IEnumerator SaveLevel(string name, string worldId, string data, Action<string> callback = null)
     {
         List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
         formData.Add(new MultipartFormDataSection("name", name));
@@ -106,7 +106,10 @@ public class DatabaseManager : MonoBehaviour
             if (success)
             {
                 if (callback != null)
-                    callback(success);
+                {
+                    string levelid = response["level_id"];
+                    callback(levelid);
+                }
             }
         }
     }
