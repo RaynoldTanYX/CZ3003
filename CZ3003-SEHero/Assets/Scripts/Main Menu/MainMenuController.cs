@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Net;
+using System;
 
 [System.Serializable]
 public class MainMenuController : MonoBehaviour
@@ -97,5 +99,15 @@ public class MainMenuController : MonoBehaviour
             PlayerPrefs.SetString("level", data);
             SceneManager.LoadScene("GameLoader");
         }
+    }
+
+    public void GenerateReport() {
+        Application.OpenURL("http://3.1.70.5/pdf.php");
+    }
+
+    public void DownloadReport() {
+        Debug.Log("DownloadReport called");
+        System.Net.WebClient client = new WebClient();
+        client.DownloadFileAsync(new Uri("http://3.1.70.5/pdf.php"), Application.persistentDataPath + "report.pdf"); //This shit doesn't work TODO
     }
 }
