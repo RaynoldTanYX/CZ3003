@@ -34,7 +34,7 @@ public class MainMenuController : MonoBehaviour
 
     private int world = 1, numOfWorlds = 5;
 
-    private string[] worldDesc = {"Requirement Elicitation", "World 2 Desc", "World 3 Desc", "World 4 Desc", "World 5 Desc"};
+    private string[] worldDesc = {"Requirement Elicitation", "UseCase Diagram/Description", "UML Design Model (1)", "UML Design Model (2)", "SRS"};
 
 	void Start()
 	{
