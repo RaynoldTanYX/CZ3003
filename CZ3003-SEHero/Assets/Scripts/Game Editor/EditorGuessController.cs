@@ -39,7 +39,7 @@ public class EditorGuessController : MonoBehaviour
         //instantiate object
         GameObject newQuestion = Instantiate(m_questionPrefab);
         //set parent
-        newQuestion.transform.SetParent(m_questionParent);
+        newQuestion.transform.SetParent(m_questionParent, false);
         //set reference to this gameObject
         newQuestion.GetComponent<GuessPrefabController>().SetEditorGuessController(this);
         //add to list
