@@ -66,6 +66,7 @@ public class GameQuiz : Game
                 {
                     timer = timeLimit;
                     NextQuestion();
+                    Debug.Log("Times up!");
                 }
                 break;
             case GameState.Win:
@@ -99,15 +100,17 @@ public class GameQuiz : Game
 
     public void ChooseOption(int index)
     {
-        if (index + 1 == m_correct)
+        if (index == m_correct)
         {
             score += 100;
             StartCoroutine(HitEnemy());
             audio.PlayOneShot(correctSound);
+            Debug.Log("Correct!");
         }
         else
         { 
             audio.PlayOneShot(wrongSound);
+            Debug.Log("Wrong!");
         }
         
         NextQuestion();
