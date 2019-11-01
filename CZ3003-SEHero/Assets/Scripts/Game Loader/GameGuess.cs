@@ -34,14 +34,19 @@ public class GameGuess : Game
 
     [SerializeField]
     private Text timerText;
+
+    private List<int> uniqueNumbers;
+    private List<int> finishedList;
     void Start()
     {
         audio = GetComponent<AudioSource>();
         m_currentQuestion = -1;
         m_guessData = JsonUtility.FromJson<GuessData>(PlayerPrefs.GetString("level"));
-        
+        uniqueNumbers = new List<int>();
+        finishedList = new List<int>();
+
         score = 0;
-        
+
         m_gameState = GameState.Ready;
         StartGame();
     }
@@ -80,46 +85,96 @@ public class GameGuess : Game
                 break;
         }
     }
-
+    public void GenerateRandomList(int [] arr, int length, int numberOfHint)
+    {
+        for (int i = 0; i < arr.Length; i++)
+        {
+            uniqueNumbers.Add(arr[i]);
+        }
+        for (int i = 0; i < numberOfHint; i++)
+        {
+            int ranNum = uniqueNumbers[Random.Range(0, uniqueNumbers.Count)];
+            while (!uniqueNumbers.Contains(ranNum))
+            {
+                ranNum = uniqueNumbers[Random.Range(0, uniqueNumbers.Count)];
+            }
+            finishedList.Add(ranNum);
+            uniqueNumbers.Remove(ranNum);
+        }
+    }
     public void generateHint()
     {
-        int maxCount = 0, count = 0;
-        char maxLetter = ' ', temp;
-        char[] s = m_guessData.values[m_currentQuestion].answer.ToCharArray();
-        string filteredStr = "";
-        for (int i=0; i<s.Length; i++)
+
+        string answer = m_guessData.values[m_currentQuestion].answer.ToUpper();     
+        char[] s = answer.ToCharArray();                                                    // char [] s = SOFTWARE ENGINEERING
+        char[] outputArr = new char[s.Length];
+        int j = 0;
+        for (int i=0; i <s.Length; i++)
         {
             if (!char.IsWhiteSpace(s[i]))
-                filteredStr += s[i];
+                j++;
+            else
+                outputArr[i] = ' ';
         }
-        char[] filteredArr = filteredStr.ToCharArray();
-
-        for (int i=0; i<filteredArr.Length; i++)
-        {
-            temp = filteredArr[i];
-            for (int j = 0; j < filteredArr.Length; j++)
-            {
-                if (i != j)
-                {
-                    if (filteredArr[j].Equals(temp))
-                        count++;
-                }
-            }
-            if (count > maxCount)
-            {
-                maxCount = count;
-                maxLetter = temp;
-            }
-            count = 0;
-        }
-        string output = "";
+        int[] indexArr = new int [j];
+        j = 0;
         for (int i = 0; i < s.Length; i++)
         {
-            if (s[i].Equals(maxLetter))
+            if (!char.IsWhiteSpace(s[i]))
             {
-                output += maxLetter + "\u00A0";
+                indexArr[j] = i;
+                j++;
             }
-            else if (!char.IsWhiteSpace(s[i]))
+        }
+        int numberOfHint = (int)(0.4 * s.Length);
+
+        GenerateRandomList(indexArr, s.Length, numberOfHint);
+        Debug.Log("RANDOM INDEXES");
+        for (int i=0; i<finishedList.Count; i++)
+        {
+            Debug.Log(finishedList[i]);
+        }
+        string output = "";
+        
+        for (int i = 0; i < numberOfHint; i++)
+        {
+            outputArr[finishedList[i]] = s[finishedList[i]];
+        }
+        Debug.Log("OUTPUT STRING");
+        for (int i = 0; i < s.Length; i++)
+        {
+            if (outputArr[i].Equals('\u0000'))
+            {
+                Debug.Log("null");
+            }
+            else
+                Debug.Log(outputArr[i]);
+            
+        }
+        //---------------------------------------------------
+        for (int i = 0; i < outputArr.Length; i++)
+        {
+            if (outputArr[i].Equals('\u0000'))
+                output += "_" + "\u00A0";
+            else if (!char.IsWhiteSpace(outputArr[i]))
+            {
+                output += outputArr[i];
+            }
+            else
+                output += " ";
+        }
+        letters.text = output;
+        //---------------------------------------------------
+        /*for (int i = 0; i < s.Length; i++)
+        {
+            for (int j = 0; j < numberOfHint; j++)
+            {
+                if (i == finishedList[j]) //hint
+                {
+                    output += s[i] + "\u00A0";
+                }
+            }
+            if (!char.IsWhiteSpace(s[i]))
             {
                 output += "_" + "\u00A0";
             }
@@ -127,7 +182,7 @@ public class GameGuess : Game
                 output += " ";
         }
         letters.text = output;
-        
+        */
     }
 
     void NextQuestion()
@@ -146,8 +201,7 @@ public class GameGuess : Game
             WinGame(score); //TODO: Set win/lose condition
         }
     }
-    
-    
+
 
     public void CheckAnswer()
     {
@@ -272,3 +326,36 @@ public class GameGuess : Game
     }
     letters.text = output;
     */
+
+/*
+ int maxCount = 0, count = 0;
+    char maxLetter = ' ', temp;
+    char[] s = m_guessData.values[m_currentQuestion].answer.ToCharArray();
+    string filteredStr = "";
+    for (int i=0; i<s.Length; i++)
+    {
+        if (!char.IsWhiteSpace(s[i]))
+            filteredStr += s[i];
+    }
+    filteredStr.ToLower();
+    char[] filteredArr = filteredStr.ToCharArray();
+
+    for (int i=0; i<filteredArr.Length; i++)
+    {
+        temp = filteredArr[i];
+        for (int j = 0; j < filteredArr.Length; j++)
+        {
+            if (i != j)
+            {
+                if (filteredArr[j].Equals(temp))
+                    count++;
+            }
+        }
+        if (count > maxCount)
+        {
+            maxCount = count;
+            maxLetter = temp;
+        }
+        count = 0;
+    }
+ */
