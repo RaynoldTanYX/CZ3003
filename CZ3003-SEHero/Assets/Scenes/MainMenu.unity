@@ -209,7 +209,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3299404}
   - component: {fileID: 3299405}
-  - component: {fileID: 3299406}
   m_Layer: 5
   m_Name: LoginManager
   m_TagString: Untagged
@@ -252,19 +251,9 @@ MonoBehaviour:
   passwordField: {fileID: 559425172}
   mc: {fileID: 1511157004}
   welcomeBackText: {fileID: 1319336925}
+  message: {fileID: 739893062}
+  messagePanel: {fileID: 842680538}
   dbManager: {fileID: 1886676104}
---- !u!114 &3299406
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3299403}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7023cd3cc9052d84ebebca2812af673f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4221573
 GameObject:
   m_ObjectHideFlags: 0
@@ -4084,7 +4073,7 @@ MonoBehaviour:
   m_AsteriskChar: 42
   m_KeyboardType: 0
   m_LineType: 0
-  m_HideMobileInput: 0
+  m_HideMobileInput: 1
   m_CharacterValidation: 0
   m_CharacterLimit: 0
   m_OnEndEdit:
@@ -4936,8 +4925,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 106, y: -103}
-  m_SizeDelta: {x: 116, y: 78.79999}
+  m_AnchoredPosition: {x: 106, y: -112.2}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &747510446
 MonoBehaviour:
@@ -4982,9 +4971,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1511157004}
-        m_MethodName: ChangeState
-        m_Mode: 3
+      - m_Target: {fileID: 3299405}
+        m_MethodName: Logout
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -13639,7 +13628,7 @@ MonoBehaviour:
   m_AsteriskChar: 42
   m_KeyboardType: 7
   m_LineType: 0
-  m_HideMobileInput: 0
+  m_HideMobileInput: 1
   m_CharacterValidation: 5
   m_CharacterLimit: 0
   m_OnEndEdit:
