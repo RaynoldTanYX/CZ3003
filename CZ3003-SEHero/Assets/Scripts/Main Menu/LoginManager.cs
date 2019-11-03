@@ -16,12 +16,15 @@ public class LoginManager : MonoBehaviour
     public GameObject messagePanel;
 
     public DatabaseManager dbManager;
+    public static bool isLoggedIn = false;
 
     public void Start() 
     {
         if (PlayerPrefs.HasKey("username"))
         {
+            isLoggedIn = true;
             welcomeBackText.text = "Welcome back, " + PlayerPrefs.GetString("username");
+            //mc.setMState(1);
             mc.ChangeState(1);
         }
     }
@@ -36,7 +39,8 @@ public class LoginManager : MonoBehaviour
 
     public void Logout() {
         PlayerPrefs.DeleteKey("username");
-        mc.ChangeState(0);
+        isLoggedIn = false;
+        SceneManager.LoadScene("MainMenu");
     }
 
     IEnumerator ShowMessage(string msg)

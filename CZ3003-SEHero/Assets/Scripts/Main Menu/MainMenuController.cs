@@ -23,7 +23,7 @@ public class MainMenuController : MonoBehaviour
         End
     }
 
-	private MenuState m_state;
+	private static MenuState m_state;
 
     [SerializeField]
     private List<GameObject> m_menuObjects;
@@ -40,14 +40,20 @@ public class MainMenuController : MonoBehaviour
 
 	void Start()
 	{
-		m_state = MenuState.Login;
-	}
+        if(LoginManager.isLoggedIn)
+		    m_state = MenuState.Game;
+        else
+            m_state = MenuState.Login;
+    }
 
 	public void ChangeState(int newState)
-	{
+    {
+        Debug.Log(m_state + " set to inactive");
         m_menuObjects[(int)m_state].SetActive(false);
 
         m_state = (MenuState)newState;
+
+        Debug.Log(m_state + " set to active");
 
         m_menuObjects[(int)m_state].SetActive(true);
 
@@ -109,5 +115,9 @@ public class MainMenuController : MonoBehaviour
         Debug.Log("DownloadReport called");
         System.Net.WebClient client = new WebClient();
         client.DownloadFileAsync(new Uri("http://3.1.70.5/pdf.php"), Application.persistentDataPath + "report.pdf"); //This shit doesn't work TODO
+    }
+
+    public void setMState(int newState) {
+        m_state = (MenuState) newState;
     }
 }

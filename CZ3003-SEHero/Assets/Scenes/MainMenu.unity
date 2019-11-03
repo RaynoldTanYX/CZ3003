@@ -13880,5 +13880,20 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1511157004}
+    - target: {fileID: 4352731083461768708, guid: 8ee1634734996814e8584102ef2565be,
+        type: 3}
+      propertyPath: m_HideMobileInput
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3471086640650364611, guid: 8ee1634734996814e8584102ef2565be,
+        type: 3}
+      propertyPath: m_Text
+      value: Enter answer here
+      objectReference: {fileID: 0}
+    - target: {fileID: 3471086640650364611, guid: 8ee1634734996814e8584102ef2565be,
+        type: 3}
+      propertyPath: m_FontData.m_Alignment
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ee1634734996814e8584102ef2565be, type: 3}
