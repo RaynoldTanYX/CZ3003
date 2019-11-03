@@ -48,17 +48,15 @@ public class MainMenuController : MonoBehaviour
 
 	public void ChangeState(int newState)
     {
-        Debug.Log(m_state + " set to inactive");
         m_menuObjects[(int)m_state].SetActive(false);
 
         m_state = (MenuState)newState;
-
-        Debug.Log(m_state + " set to active");
 
         m_menuObjects[(int)m_state].SetActive(true);
 
         if (newState == 7)
         {
+            m_state = MenuState.Login;
             SceneManager.LoadScene("Editor");
         }
     }
@@ -97,9 +95,7 @@ public class MainMenuController : MonoBehaviour
     }
 
     private void GetLevelCallback(bool success, string name, string data) {
-        Debug.Log("called");
         if(success) {
-            Debug.Log("success");
             data = data.Replace("\\", "");
             Debug.Log(data);
             PlayerPrefs.SetString("level", data);
@@ -115,9 +111,5 @@ public class MainMenuController : MonoBehaviour
         Debug.Log("DownloadReport called");
         System.Net.WebClient client = new WebClient();
         client.DownloadFileAsync(new Uri("http://3.1.70.5/pdf.php"), Application.persistentDataPath + "report.pdf"); //This shit doesn't work TODO
-    }
-
-    public void setMState(int newState) {
-        m_state = (MenuState) newState;
     }
 }

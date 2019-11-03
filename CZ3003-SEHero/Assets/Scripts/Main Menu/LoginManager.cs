@@ -24,7 +24,6 @@ public class LoginManager : MonoBehaviour
         {
             isLoggedIn = true;
             welcomeBackText.text = "Welcome back, " + PlayerPrefs.GetString("username");
-            //mc.setMState(1);
             mc.ChangeState(1);
         }
     }
