@@ -51,7 +51,4 @@ public class EditorController : MonoBehaviour
         te.SelectAll();
         te.Copy();
     }
-
-
-
 }
