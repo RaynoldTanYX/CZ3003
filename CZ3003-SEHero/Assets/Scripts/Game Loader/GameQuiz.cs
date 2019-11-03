@@ -61,6 +61,7 @@ public class GameQuiz : Game
                     NextQuestion();
                 }
                 timer += Time.deltaTime;
+                Debug.Log("Time left " + (int)(timeLimit - timer));
                 timerText.text = "Time left\n" + (int)(timeLimit - timer);
                 if (timer >= timeLimit)
                 {
@@ -80,6 +81,7 @@ public class GameQuiz : Game
     {
         timer = 0;
         m_currentQuestion++;
+        Debug.Log("quizData count: " + m_quizData.values.Count);
         if (m_currentQuestion < m_quizData.values.Count)
         {
             QuestionValues values = m_quizData.values[m_currentQuestion];

@@ -97,8 +97,9 @@ public class MainMenuController : MonoBehaviour
     private void GetLevelCallback(bool success, string name, string data) {
         if(success) {
             data = data.Replace("\\", "");
-            Debug.Log(data);
+            Debug.Log("GetLevel: " + data);
             PlayerPrefs.SetString("level", data);
+            m_state = MenuState.Login;
             SceneManager.LoadScene("GameLoader");
         }
     }
