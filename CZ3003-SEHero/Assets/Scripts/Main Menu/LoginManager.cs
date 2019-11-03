@@ -12,6 +12,7 @@ public class LoginManager : MonoBehaviour
     public InputField passwordField;
     public MainMenuController mc;
     public Text welcomeBackText;
+    public Text profileWelcomeBackText;
     public Text message;
     public GameObject messagePanel;
 
@@ -24,6 +25,7 @@ public class LoginManager : MonoBehaviour
         {
             isLoggedIn = true;
             welcomeBackText.text = "Welcome back, " + PlayerPrefs.GetString("username");
+            profileWelcomeBackText.text = PlayerPrefs.GetString("username");
             mc.ChangeState(1);
         }
     }

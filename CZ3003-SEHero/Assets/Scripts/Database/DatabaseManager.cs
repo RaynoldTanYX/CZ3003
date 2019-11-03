@@ -164,4 +164,27 @@ public class DatabaseManager : MonoBehaviour
                 callback(success, response["message"]);
         }
     }
+
+    public IEnumerator GetLeaderboard(int world, Action<bool, JSONNode> callback = null)
+    {
+        Debug.Log("World id: " + world);
+        List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
+        formData.Add(new MultipartFormDataSection("worldid", world.ToString()));
+
+        UnityWebRequest www = UnityWebRequest.Post(URL + "leaderboard.php", formData);
+        yield return www.SendWebRequest();
+
+        if (www.isNetworkError || www.isHttpError)
+        {
+            Debug.Log(www.error);
+        }
+        else
+        {
+            var response = JSON.Parse(www.downloadHandler.text);
+            bool success = response["success"].AsBool;
+
+            if (callback != null)
+                callback(success, response["scores"]);
+        }
+    }
 }

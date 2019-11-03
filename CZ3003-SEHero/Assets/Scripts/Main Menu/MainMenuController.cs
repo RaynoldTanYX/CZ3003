@@ -20,7 +20,7 @@ public class MainMenuController : MonoBehaviour
         Level,
         UserCreations,
         Profile,
-        End
+        Leaderboard
     }
 
 	private static MenuState m_state;
@@ -59,6 +59,9 @@ public class MainMenuController : MonoBehaviour
             m_state = MenuState.Login;
             SceneManager.LoadScene("Editor");
         }
+
+        if(newState == 3)
+            PlayerPrefs.SetInt("worldid", world);
     }
 
     public void NextWorld() 
