@@ -18,7 +18,7 @@ MonoBehaviour:
   appIds:
   - 781370108950958
   appLabels:
-  - SEHero
+  - CZ3003-SEHero
   cookie: 1
   logging: 1
   status: 1
@@ -26,7 +26,8 @@ MonoBehaviour:
   frictionlessRequests: 1
   iosURLSuffix: 
   appLinkSchemes:
-  - list: []
+  - list:
+    - sehero
   uploadAccessToken: 
   autoLogAppEventsEnabled: 1
   advertiserIDCollectionEnabled: 1

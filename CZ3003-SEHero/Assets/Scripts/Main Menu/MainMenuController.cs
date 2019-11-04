@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Net;
 using System;
+using Facebook.Unity;
 
 [System.Serializable]
 public class MainMenuController : MonoBehaviour
@@ -39,8 +40,20 @@ public class MainMenuController : MonoBehaviour
     private int world = 1, numOfWorlds = 5;
 
     private string[] worldDesc = {"Requirement Elicitation", "Use Case Diagram/Description", "UML Design Model (1)", "UML Design Model (2)", "SRS"};
+    
+    private void Awake()
+    {
+        if (!FB.IsInitialized)
+        {
+            FB.Init(FBInitCallback);
+        }
+        else
+        {
+            FB.ActivateApp();
+        }
+    }
 
-	void Start()
+    void Start()
 	{
         if(LoginManager.isLoggedIn)
 		    m_state = MenuState.Game;
@@ -131,5 +144,36 @@ public class MainMenuController : MonoBehaviour
         Debug.Log("DownloadReport called");
         System.Net.WebClient client = new WebClient();
         client.DownloadFileAsync(new Uri("http://3.1.70.5/pdf.php"), Application.persistentDataPath + "report.pdf"); //This shit doesn't work TODO
+    }
+
+    private void FBInitCallback() 
+    {
+        if (FB.IsInitialized)
+        {
+            FB.GetAppLink(DeepLinkCallback);
+        }
+        else
+        {
+            Debug.Log("Failed to Initialize the Facebook SDK");
+        }
+    }
+
+    private void DeepLinkCallback(IAppLinkResult result)
+    {
+        Debug.Log("Deeplink called");
+
+        if (!String.IsNullOrEmpty(result.Url))
+        {
+            var start = result.Url.IndexOf("level/") + 6;
+            var end = result.Url.IndexOf("?");
+
+            if (start != -1)
+            {
+                Debug.Log(result.Url.Substring(start, end - start));
+
+                codeText.text = result.Url.Substring(start, end - start);
+                ChangeState(10);
+            }
+        }
     }
 }
