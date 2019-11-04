@@ -34,7 +34,7 @@ public class MainMenuController : MonoBehaviour
     [SerializeField]
     private Text worldNumberText;
 
-    public InputField CodeText;
+    public InputField codeText;
 
     private int world = 1, numOfWorlds = 5;
 
@@ -99,14 +99,18 @@ public class MainMenuController : MonoBehaviour
         StartCoroutine(dbManager.GetLevel(world, level, GetLevelCallback));
     }
 
-    public void GetChallenge(Textfield)
+    public void GetChallenge()
     {
-        //TODO: add world selection
-        int world = 0;
-        PlayerPrefs.SetInt("worldid", world);
-        PlayerPrefs.SetInt("levelid", CodeText);
-
-        StartCoroutine(dbManager.GetLevel(world, CodeText, GetLevelCallback));
+        int level = -1;
+        try
+        {
+            level = Int32.Parse(codeText.text);
+        }
+        catch { };
+        if (level >= 0)
+        {
+            StartCoroutine(dbManager.GetLevel(0, level, GetLevelCallback));
+        }
     }
 
     private void GetLevelCallback(bool success, string name, string data) {

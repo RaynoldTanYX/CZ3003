@@ -4446,20 +4446,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 562192311}
   m_TextComponent: {fileID: 42354672}
   m_Placeholder: {fileID: 1170340931}
-  m_ContentType: 6
+  m_ContentType: 2
   m_InputType: 0
   m_AsteriskChar: 42
-  m_KeyboardType: 7
+  m_KeyboardType: 4
   m_LineType: 0
   m_HideMobileInput: 0
-  m_CharacterValidation: 5
+  m_CharacterValidation: 1
   m_CharacterLimit: 0
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls: []
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
@@ -10255,7 +10266,7 @@ MonoBehaviour:
   - {fileID: 1134473860}
   worldTitleText: {fileID: 1318669401}
   worldNumberText: {fileID: 252483183}
-  CodeText: {fileID: 0}
+  codeText: {fileID: 562192310}
 --- !u!4 &1511157005
 Transform:
   m_ObjectHideFlags: 0
@@ -13056,7 +13067,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1511157004}
         m_MethodName: GetChallenge
-        m_Mode: 3
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
