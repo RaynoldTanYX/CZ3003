@@ -34,6 +34,8 @@ public class MainMenuController : MonoBehaviour
     [SerializeField]
     private Text worldNumberText;
 
+    public InputField CodeText;
+
     private int world = 1, numOfWorlds = 5;
 
     private string[] worldDesc = {"Requirement Elicitation", "Use Case Diagram/Description", "UML Design Model (1)", "UML Design Model (2)", "SRS"};
@@ -95,6 +97,16 @@ public class MainMenuController : MonoBehaviour
         PlayerPrefs.SetInt("levelid", level);
 
         StartCoroutine(dbManager.GetLevel(world, level, GetLevelCallback));
+    }
+
+    public void GetChallenge(Textfield)
+    {
+        //TODO: add world selection
+        int world = 0;
+        PlayerPrefs.SetInt("worldid", world);
+        PlayerPrefs.SetInt("levelid", CodeText);
+
+        StartCoroutine(dbManager.GetLevel(world, CodeText, GetLevelCallback));
     }
 
     private void GetLevelCallback(bool success, string name, string data) {

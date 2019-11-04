@@ -719,7 +719,7 @@ GameObject:
   - component: {fileID: 42354673}
   - component: {fileID: 42354672}
   m_Layer: 5
-  m_Name: Text
+  m_Name: CodeText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10255,6 +10255,7 @@ MonoBehaviour:
   - {fileID: 1134473860}
   worldTitleText: {fileID: 1318669401}
   worldNumberText: {fileID: 252483183}
+  CodeText: {fileID: 0}
 --- !u!4 &1511157005
 Transform:
   m_ObjectHideFlags: 0
@@ -13054,12 +13055,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1511157004}
-        m_MethodName: GetLevel
+        m_MethodName: GetChallenge
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
