@@ -35,6 +35,9 @@ public class MainMenuController : MonoBehaviour
     [SerializeField]
     private Text worldNumberText;
 
+    [SerializeField]
+    private Button[] levelButtons;
+
     public InputField codeText;
 
     private int world = 1, numOfWorlds = 5;
@@ -75,8 +78,52 @@ public class MainMenuController : MonoBehaviour
             SceneManager.LoadScene("Editor");
         }
 
-        if(newState == 3)
+        if(newState == 3)//level select
+        {
             PlayerPrefs.SetInt("worldid", world);
+            int highestworld = 1;
+            int highestlevel = 2;
+            //if user picks highest world unlocked
+            if (world == highestworld)
+            {
+                for (int i = 0; i < levelButtons.Length; i++)
+                {
+                    //lock levels that are higher than highest level and unlock those lower or equal
+                    if (i > highestlevel)
+                        levelButtons[i].interactable = false;
+                    else
+                        levelButtons[i].interactable = true;
+                }
+            }
+            //else if user has completed previous world
+            else if (world == highestworld + 1 && highestlevel == levelButtons.Length - 1)
+            {
+                for (int i = 0; i < levelButtons.Length; i++)
+                {
+                    //unlock first level
+                    if (i == 0)
+                        levelButtons[i].interactable = true;
+                    else
+                        levelButtons[i].interactable = false;
+                }
+            }
+            else if (world > highestworld)
+            {
+                //lock all levels
+                for (int i = 0; i < levelButtons.Length; i++)
+                {
+                    levelButtons[i].interactable = false;
+                }
+            }
+            else if (world < highestworld)
+            {
+                //unlock all levels
+                for (int i = 0; i < levelButtons.Length; i++)
+                {
+                    levelButtons[i].interactable = true;
+                }
+            }
+        }
     }
 
     public void NextWorld() 
