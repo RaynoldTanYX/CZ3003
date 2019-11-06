@@ -68,6 +68,7 @@ public class MainMenuController : MonoBehaviour
         if (PlayerPrefs.GetInt("State", 0) == (int)MenuState.Level)
         {
             world = PlayerPrefs.GetInt("worldid", 1) - 1;
+            PlayerPrefs.SetInt("State", 0);
             NextWorld();
             ChangeState((int)MenuState.Level);
         }
