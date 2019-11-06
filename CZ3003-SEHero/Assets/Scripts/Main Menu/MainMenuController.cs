@@ -81,6 +81,10 @@ public class MainMenuController : MonoBehaviour
         if(newState == 3)//level select
         {
             PlayerPrefs.SetInt("worldid", world);
+
+            //TODO: HY, help me set these two variables
+            //maybe set playerprefs in Start() then get playerprefs here
+            //so don't have to wait here for database call
             int highestworld = 1;
             int highestlevel = 2;
             //if user picks highest world unlocked
