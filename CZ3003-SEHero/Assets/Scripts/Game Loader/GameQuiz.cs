@@ -61,7 +61,7 @@ public class GameQuiz : Game
                     NextQuestion();
                 }
                 timer += Time.deltaTime;
-                Debug.Log("Time left " + (int)(timeLimit - timer));
+                //Debug.Log("Time left " + (int)(timeLimit - timer));
                 timerText.text = "Time left\n" + (int)(timeLimit - timer);
                 if (timer >= timeLimit)
                 {

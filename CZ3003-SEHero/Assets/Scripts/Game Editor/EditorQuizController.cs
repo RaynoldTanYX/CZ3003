@@ -172,7 +172,7 @@ public class EditorQuizController : MonoBehaviour
             {
                 errorMessage += "Answer 4 for question #" + (value.index + 1) + " cannot be empty.\n";
             }
-            if (value.correct == -1)
+            if (value.correct < 1 || value.correct > 4)
             {
                 errorMessage += "Correct answer for question #" + (value.index + 1) + " cannot be empty.\n";
             }

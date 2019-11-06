@@ -15,7 +15,7 @@ public class MainMenuController : MonoBehaviour
     [SerializeField]
     DatabaseManager dbManager;
 
-    private enum MenuState
+    public enum MenuState
     {
         Login,//0
         Game,
@@ -77,6 +77,14 @@ public class MainMenuController : MonoBehaviour
         }
         else
             m_state = MenuState.Login;
+		
+        if (PlayerPrefs.GetInt("State", 0) == (int)MenuState.Level)
+        {
+            world = PlayerPrefs.GetInt("worldid", 1) - 1;
+            PlayerPrefs.SetInt("State", 0);
+            NextWorld();
+            ChangeState((int)MenuState.Level);
+        }
     }
 
 	public void ChangeState(int newState)

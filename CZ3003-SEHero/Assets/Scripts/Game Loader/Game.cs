@@ -89,6 +89,7 @@ public class Game : MonoBehaviour
 
     public void ReturnToMenu()
     {
+        PlayerPrefs.SetInt("State", (int)MainMenuController.MenuState.Level);
         SceneManager.LoadScene("MainMenu");
     }
 }
