@@ -697,7 +697,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Sign Up
+  m_Text: SIGN UP
 --- !u!222 &37997023
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1175,7 +1175,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &125590549
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2418,10 +2418,10 @@ RectTransform:
   m_Father: {fileID: 826436136}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -0.24700001}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000061035156}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.0000076293945, y: 0}
+  m_SizeDelta: {x: 397.3, y: 128.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &316066472
 MonoBehaviour:
@@ -2454,7 +2454,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: View Report
+  m_Text: VIEW REPORT
 --- !u!222 &316066473
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2994,10 +2994,10 @@ RectTransform:
   m_Father: {fileID: 1539942610}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -0.24700001}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000061035156}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 315.8, y: 119.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &365567482
 MonoBehaviour:
@@ -3019,10 +3019,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 90
+    m_FontSize: 10
     m_FontStyle: 1
     m_BestFit: 1
-    m_MinSize: 3
+    m_MinSize: 0
     m_MaxSize: 97
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -3030,7 +3030,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Download Report
+  m_Text: DOWNLOAD REPORT
 --- !u!222 &365567483
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3493,7 +3493,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Did you want to view or download the report?
+  m_Text: Do you want to view or download the report?
 --- !u!222 &425731728
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4528,7 +4528,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &571364479
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5933,8 +5933,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -294.4}
-  m_SizeDelta: {x: 450, y: 195.30005}
+  m_AnchoredPosition: {x: -3.2271, y: -304.9}
+  m_SizeDelta: {x: 456.45, y: 174.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &826436137
 MonoBehaviour:
@@ -7512,7 +7512,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1105794211
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7529,7 +7529,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 20.15, y: 687}
+  m_AnchoredPosition: {x: 0.000005722046, y: 687}
   m_SizeDelta: {x: 564.3, y: 72.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1105794212
@@ -7563,7 +7563,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Progress Report
+  m_Text: PROGRESS REPORT
 --- !u!222 &1105794213
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7802,8 +7802,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -546.7}
-  m_SizeDelta: {x: 371.14, y: 136.69995}
+  m_AnchoredPosition: {x: 0, y: -544.6}
+  m_SizeDelta: {x: 413.1, y: 140.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1157480828
 MonoBehaviour:
@@ -7929,8 +7929,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -0.0000038146973, y: -108}
-  m_SizeDelta: {x: 346.6, y: 65.6}
+  m_AnchoredPosition: {x: -0.0000076293945, y: -108}
+  m_SizeDelta: {x: 518.1, y: 65.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1158957623
 MonoBehaviour:
@@ -7963,7 +7963,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "WORLD \n"
+  m_Text: 'WORLD SELECT
+
+'
 --- !u!222 &1158957624
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9534,10 +9536,10 @@ RectTransform:
   m_Father: {fileID: 1157480827}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -0.24700001}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000061035156}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 372.1, y: 106.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1363293474
 MonoBehaviour:
@@ -9570,7 +9572,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Generate Report
+  m_Text: GENERATE REPORT
 --- !u!222 &1363293475
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11440,10 +11442,10 @@ RectTransform:
   m_Father: {fileID: 2029270624}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -107}
-  m_SizeDelta: {x: 346.6, y: 65.6}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 701.9}
+  m_SizeDelta: {x: 716.30005, y: 81.400024}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1644561300
 MonoBehaviour:
@@ -11476,7 +11478,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: LEVEL
+  m_Text: LEVEL SELECT
 --- !u!222 &1644561301
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -13595,10 +13597,10 @@ RectTransform:
   m_Father: {fileID: 1595243330}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.0000038146973, y: 0}
+  m_SizeDelta: {x: 249.6, y: 74.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1957872199
 MonoBehaviour:
