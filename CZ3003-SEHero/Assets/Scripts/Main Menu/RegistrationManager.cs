@@ -16,31 +16,26 @@ public class RegistrationManager : MonoBehaviour
 
     public DatabaseManager dbManager;
 
+    private int avatarChoice = 0;
+
     public void Register()
     {
-        if(emailField.text.IndexOf('@') <= 0)
-            StartCoroutine(ShowMessage("Invalid email format entered!", false));
-        else if(emailField.text.Length == 0 || usernameField.text.Length == 0 || passwordField.text.Length == 0)
-            StartCoroutine(ShowMessage("All fields must be filled up!", false));
+        if (emailField.text.IndexOf('@') <= 0)
+            MessagePanel.GetInstance().ShowMessage("Invalid email format entered!");
+        else if (emailField.text.Length == 0 || usernameField.text.Length == 0 || passwordField.text.Length == 0)
+            MessagePanel.GetInstance().ShowMessage("All fields must be filled up!");
         else
-            StartCoroutine(dbManager.SendRegistration(usernameField.text, passwordField.text, emailField.text, RegisterCallback));
+            StartCoroutine(dbManager.SendRegistration(usernameField.text, passwordField.text, emailField.text, avatarChoice, RegisterCallback));
     }
 
-    IEnumerator ShowMessage(string msg, bool success)
-    {
-        messagePanel.SetActive(true);
-        message.text = msg;
-        yield return new WaitForSeconds(3f);
-        messagePanel.SetActive(false);
-
-        if(success)
-            mc.ChangeState(0);
+    public void SelectAvatar(int choice) {
+        avatarChoice = choice;
     }
 
     private void RegisterCallback(bool success, string msg) {
         if(success)
-            StartCoroutine(ShowMessage("Successfully registered!", true));
+            mc.ChangeState(0);
         else
-            StartCoroutine(ShowMessage(msg, false));
+            MessagePanel.GetInstance().ShowMessage(msg);
     }
 }

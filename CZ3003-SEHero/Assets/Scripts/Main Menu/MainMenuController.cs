@@ -49,6 +49,18 @@ public class MainMenuController : MonoBehaviour
     [SerializeField]
     private Text currentLevel;
 
+    [SerializeField]
+    private GameObject avatar1;
+
+    [SerializeField]
+    private GameObject avatar2;
+
+    [SerializeField]
+    private GameObject gameAvatar1;
+
+    [SerializeField]
+    private GameObject gameAvatar2;
+
     public InputField codeText;
 
     private int world = 1, numOfWorlds = 5, currentWorldValue = 1, currentLevelValue = 1, totalScoreValue = 0;
@@ -73,6 +85,7 @@ public class MainMenuController : MonoBehaviour
         {
             StartCoroutine(dbManager.GetCurrentProgress(PlayerPrefs.GetString("username"), GetCurrentProgressCallback));
             StartCoroutine(dbManager.GetTotalScore(PlayerPrefs.GetString("username"), GetTotalScoreCallback));
+
             m_state = MenuState.Game;
         }
         else
@@ -95,13 +108,30 @@ public class MainMenuController : MonoBehaviour
 
         m_menuObjects[(int)m_state].SetActive(true);
 
+        if (newState == 1) { //game menu
+            if (PlayerPrefs.GetInt("avatar") == 0)
+            {
+                gameAvatar1.SetActive(true);
+                gameAvatar2.SetActive(false);
+            }
+            else
+            {
+                gameAvatar1.SetActive(false);
+                gameAvatar2.SetActive(true);
+            }
+        }
+
+        if (newState == 2) { //world select
+            StartCoroutine(dbManager.GetCurrentProgress(PlayerPrefs.GetString("username"), GetCurrentProgressCallback));
+        }
+
         if (newState == 7)
         {
             m_state = MenuState.Login;
             SceneManager.LoadScene("Editor");
         }
 
-        if (newState == 5) {
+        if (newState == 5) { //profile
             if (totalScoreValue == 0)
             {
                 StartCoroutine(dbManager.GetCurrentProgress(PlayerPrefs.GetString("username"), GetCurrentProgressCallback));
@@ -111,6 +141,17 @@ public class MainMenuController : MonoBehaviour
                 currentWorld.text = currentWorldValue.ToString();
                 currentLevel.text = currentLevelValue.ToString();
                 totalScore.text = totalScoreValue.ToString();
+            }
+
+            if (PlayerPrefs.GetInt("avatar") == 0)
+            {
+                avatar1.SetActive(true);
+                avatar2.SetActive(false);
+            }
+            else
+            {
+                avatar1.SetActive(false);
+                avatar2.SetActive(true);
             }
         }
 
@@ -343,6 +384,8 @@ public class MainMenuController : MonoBehaviour
             PlayerPrefs.SetInt("currentworld", worldId);
             PlayerPrefs.SetInt("currentlevel", levelId);
 
+            currentWorldValue = worldId;
+            currentLevelValue = levelId;
 
             currentWorld.text = worldId.ToString();
             currentLevel.text = levelId.ToString();

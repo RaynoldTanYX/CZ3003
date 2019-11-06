@@ -9,7 +9,7 @@ public class DatabaseManager : MonoBehaviour
 {
     private const string URL = "http://3.1.70.5/";
 
-    public IEnumerator SendLogin(string email, string password, Action<bool, string, string> callback = null)
+    public IEnumerator SendLogin(string email, string password, Action<bool, string, string, int> callback = null)
     {
         List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
         formData.Add(new MultipartFormDataSection("email", email));
@@ -28,16 +28,17 @@ public class DatabaseManager : MonoBehaviour
             bool success = response["success"].AsBool;
 
             if(callback != null)
-                callback(success, response["username"], response["user_type"]);
+                callback(success, response["username"], response["user_type"], response["avatar"]);
         }
     }
 
-    public IEnumerator SendRegistration(string username, string password, string email, Action<bool, string> callback = null)
+    public IEnumerator SendRegistration(string username, string password, string email, int avatarChoice, Action<bool, string> callback = null)
     {
         List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
         formData.Add(new MultipartFormDataSection("username", username));
         formData.Add(new MultipartFormDataSection("password", password));
         formData.Add(new MultipartFormDataSection("email", email));
+        formData.Add(new MultipartFormDataSection("avatar", avatarChoice.ToString()));
 
         UnityWebRequest www = UnityWebRequest.Post("http://3.1.70.5/register.php", formData);
         yield return www.SendWebRequest();
