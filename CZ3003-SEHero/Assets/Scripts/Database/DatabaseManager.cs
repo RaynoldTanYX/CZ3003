@@ -187,4 +187,26 @@ public class DatabaseManager : MonoBehaviour
                 callback(success, response["scores"]);
         }
     }
+
+    public IEnumerator GetCurrentProgress(string username, Action<bool, int, int> callback = null)
+    {
+        List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
+        formData.Add(new MultipartFormDataSection("username", username));
+
+        UnityWebRequest www = UnityWebRequest.Post(URL + "getcurrentprogress.php", formData);
+        yield return www.SendWebRequest();
+
+        if (www.isNetworkError || www.isHttpError)
+        {
+            Debug.Log(www.error);
+        }
+        else
+        {
+            var response = JSON.Parse(www.downloadHandler.text);
+            bool success = response["success"].AsBool;
+
+            if (callback != null)
+                callback(success, response["world_id"], response["level_id"]);
+        }
+    }
 }

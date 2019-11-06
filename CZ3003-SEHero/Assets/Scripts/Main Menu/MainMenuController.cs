@@ -62,6 +62,8 @@ public class MainMenuController : MonoBehaviour
 		    m_state = MenuState.Game;
         else
             m_state = MenuState.Login;
+
+        StartCoroutine(dbManager.GetCurrentProgress(PlayerPrefs.GetString("username"), GetCurrentProgressCallback));
     }
 
 	public void ChangeState(int newState)
@@ -82,11 +84,8 @@ public class MainMenuController : MonoBehaviour
         {
             PlayerPrefs.SetInt("worldid", world);
 
-            //TODO: HY, help me set these two variables
-            //maybe set playerprefs in Start() then get playerprefs here
-            //so don't have to wait here for database call
-            int highestworld = 1;
-            int highestlevel = 2;
+            int highestworld = PlayerPrefs.GetInt("currentworld", 1);
+            int highestlevel = PlayerPrefs.GetInt("currentlevel", 1);
             //if user picks highest world unlocked
             if (world == highestworld)
             {
@@ -233,6 +232,13 @@ public class MainMenuController : MonoBehaviour
                 codeText.text = result.Url.Substring(start, end - start);
                 ChangeState(10);
             }
+        }
+    }
+
+    private void GetCurrentProgressCallback(bool success, int worldId, int levelId) {
+        if (success) {
+            PlayerPrefs.SetInt("currentworld", worldId);
+            PlayerPrefs.SetInt("currentlevel", levelId);
         }
     }
 }
