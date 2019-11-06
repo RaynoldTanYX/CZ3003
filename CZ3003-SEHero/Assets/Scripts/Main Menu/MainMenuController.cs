@@ -51,7 +51,7 @@ public class MainMenuController : MonoBehaviour
 
     public InputField codeText;
 
-    private int world = 1, numOfWorlds = 5;
+    private int world = 1, numOfWorlds = 5, currentWorldValue = 1, currentLevelValue = 1, totalScoreValue = 0;
 
     private string[] worldDesc = {"Requirement Elicitation", "Use Case Diagram/Description", "UML Design Model (1)", "UML Design Model (2)", "SRS"};
     
@@ -99,6 +99,19 @@ public class MainMenuController : MonoBehaviour
         {
             m_state = MenuState.Login;
             SceneManager.LoadScene("Editor");
+        }
+
+        if (newState == 5) {
+            if (totalScoreValue == 0)
+            {
+                StartCoroutine(dbManager.GetCurrentProgress(PlayerPrefs.GetString("username"), GetCurrentProgressCallback));
+                StartCoroutine(dbManager.GetTotalScore(PlayerPrefs.GetString("username"), GetTotalScoreCallback));
+            }
+            else {
+                currentWorld.text = currentWorldValue.ToString();
+                currentLevel.text = currentLevelValue.ToString();
+                totalScore.text = totalScoreValue.ToString();
+            }
         }
 
         if(newState == 3)//level select
@@ -329,6 +342,10 @@ public class MainMenuController : MonoBehaviour
         if (success) {
             PlayerPrefs.SetInt("currentworld", worldId);
             PlayerPrefs.SetInt("currentlevel", levelId);
+
+
+            currentWorld.text = worldId.ToString();
+            currentLevel.text = levelId.ToString();
         }
     }
 
@@ -336,8 +353,7 @@ public class MainMenuController : MonoBehaviour
     {
         if (success)
         {
-            currentWorld.text = PlayerPrefs.GetInt("currentworld", 1).ToString();
-            currentLevel.text = PlayerPrefs.GetInt("currentlevel", 1).ToString();
+            totalScoreValue = score;
             totalScore.text = score.ToString();
         }
     }

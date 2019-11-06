@@ -50,6 +50,7 @@ public class LoginManager : MonoBehaviour
             PlayerPrefs.SetString("user_type", userType);
             mc.ChangeState(1);
             welcomeBackText.text = "Welcome back, " + username;
+            profileWelcomeBackText.text = PlayerPrefs.GetString("username");
         }
         else {
             MessagePanel.GetInstance().ShowMessage("Login failed, please check your credentials.");
