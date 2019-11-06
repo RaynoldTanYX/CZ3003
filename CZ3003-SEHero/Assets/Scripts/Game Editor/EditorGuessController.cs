@@ -66,6 +66,8 @@ public class EditorGuessController : MonoBehaviour
             Debug.Log("Question removed: " + index);
             //update indexes of questions
             UpdateIndexes();
+            //update content size fitter (work-around)
+            StartCoroutine(UpdateContentSizeFitter());
         }
         else
         {

@@ -124,6 +124,10 @@ public class MainMenuController : MonoBehaviour
         {
             StartCoroutine(dbManager.GetLevel(0, level, GetLevelCallback));
         }
+        else
+        {
+            MessagePanel.GetInstance().ShowMessage("Challenge code must not be empty.");
+        }
     }
 
     private void GetLevelCallback(bool success, string name, string data) {
@@ -133,6 +137,10 @@ public class MainMenuController : MonoBehaviour
             PlayerPrefs.SetString("level", data);
             m_state = MenuState.Login;
             SceneManager.LoadScene("GameLoader");
+        }
+        else
+        {
+            MessagePanel.GetInstance().ShowMessage("Invalid challenge code.");
         }
     }
 
