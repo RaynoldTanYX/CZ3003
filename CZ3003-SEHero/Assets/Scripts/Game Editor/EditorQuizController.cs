@@ -138,6 +138,50 @@ public class EditorQuizController : MonoBehaviour
             //Debug.Log(go.GetComponent<QuizPrefabController>().GetValues().answer1);
         }
         data.values = list;
+        //test cases
+        string errorMessage = "";
+        if (data.gameData.title.Length == 0)
+        {
+            errorMessage += "Title cannot be empty.\n";
+        }
+        if (data.gameData.description.Length == 0)
+        {
+            errorMessage += "Description cannot be empty.\n";
+        }
+        foreach (QuestionValues value in data.values)
+        {
+            if (value.question.Length == 0)
+            {
+                errorMessage += "Question #" + (value.index + 1) + " cannot be empty.\n";
+            }
+            if (value.answer1.Length == 0)
+            {
+                errorMessage += "Answer 1 for question #" + (value.index + 1) + " cannot be empty.\n";
+            }
+            if (value.answer2.Length == 0)
+            {
+                errorMessage += "Answer 2 for question #" + (value.index + 1) + " cannot be empty.\n";
+            }
+            if (value.answer3.Length == 0)
+            {
+                errorMessage += "Answer 3 for question #" + (value.index + 1) + " cannot be empty.\n";
+            }
+            if (value.answer4.Length == 0)
+            {
+                errorMessage += "Answer 4 for question #" + (value.index + 1) + " cannot be empty.\n";
+            }
+            if (value.correct == -1)
+            {
+                errorMessage += "Correct answer for question #" + (value.index + 1) + " cannot be empty.\n";
+            }
+
+        }
+        if (errorMessage != "")
+        {
+            //show message
+            MessagePanel.GetInstance().ShowMessage(errorMessage);
+            return;//dont send to database
+        }
 
         string json = JsonUtility.ToJson(data);
         PlayerPrefs.SetString("level", json);

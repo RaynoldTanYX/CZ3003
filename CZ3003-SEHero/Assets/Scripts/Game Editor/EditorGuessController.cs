@@ -29,6 +29,7 @@ public class EditorGuessController : MonoBehaviour
     [SerializeField]
     private EditorController ec;
 
+    public GameObject messagePanel;
     private void Start()
     {
         m_questionList = new List<GameObject>();
@@ -137,9 +138,39 @@ public class EditorGuessController : MonoBehaviour
         }
         data.values = list;
 
+        //test cases
+        string errorMessage = "";
+        if (data.gameData.title.Length == 0)
+        {
+            errorMessage += "Title cannot be empty.\n";
+        }
+        if (data.gameData.description.Length == 0)
+        {
+            errorMessage += "Description cannot be empty.";
+        }
+        foreach (QuestionValuesGuess value in data.values)
+        {
+            if (value.question.Length == 0)
+            {
+                errorMessage += "Question #" + value.index + 1 + " cannot be empty.\n";
+            }
+            if (value.answer.Length == 0)
+            {
+                errorMessage += " Answer for question #" + value.index + 1 + " cannot be empty.\n";
+            }
+
+        }
+        if (errorMessage != "")
+        {
+            //show message
+            MessagePanel.GetInstance().ShowMessage(errorMessage);
+            return;//dont send to database
+        }
+
+
         string json = JsonUtility.ToJson(data);
         PlayerPrefs.SetString("level", json);
-        StartCoroutine(dbManager.SaveLevel(m_title.text, "1", json, PublishCallback));
+        StartCoroutine(dbManager.SaveLevel(m_title.text, "0", json, PublishCallback));
         Debug.Log(json);
     }
     protected void PublishCallback(int levelid)

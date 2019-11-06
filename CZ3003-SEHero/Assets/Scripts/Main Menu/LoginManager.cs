@@ -14,7 +14,6 @@ public class LoginManager : MonoBehaviour
     public Text welcomeBackText;
     public Text profileWelcomeBackText;
     public Text message;
-    public GameObject messagePanel;
 
     public DatabaseManager dbManager;
     public static bool isLoggedIn = false;
@@ -33,7 +32,7 @@ public class LoginManager : MonoBehaviour
     public void Login()
     {
         if (emailField.text.Length == 0 || passwordField.text.Length == 0)
-            StartCoroutine(ShowMessage("All fields must be filled up!"));
+            MessagePanel.GetInstance().ShowMessage("All fields must not be empty.");
         else
             StartCoroutine(dbManager.SendLogin(emailField.text, passwordField.text, LoginCallback));
     }
@@ -44,14 +43,6 @@ public class LoginManager : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
-    IEnumerator ShowMessage(string msg)
-    {
-        messagePanel.SetActive(true);
-        message.text = msg;
-        yield return new WaitForSeconds(3f);
-        messagePanel.SetActive(false);
-    }
-
     private void LoginCallback(bool success, string username) {
         if (success)
         {
@@ -60,7 +51,7 @@ public class LoginManager : MonoBehaviour
             welcomeBackText.text = "Welcome back, " + username;
         }
         else {
-            StartCoroutine(ShowMessage("Login failed, please check your credentials."));
+            MessagePanel.GetInstance().ShowMessage("Login failed, please check your credentials.");
         }
     }
 }
