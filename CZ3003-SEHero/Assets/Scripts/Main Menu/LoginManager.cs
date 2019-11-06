@@ -43,10 +43,11 @@ public class LoginManager : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
-    private void LoginCallback(bool success, string username) {
+    private void LoginCallback(bool success, string username, string userType) {
         if (success)
         {
             PlayerPrefs.SetString("username", username);
+            PlayerPrefs.SetString("user_type", userType);
             mc.ChangeState(1);
             welcomeBackText.text = "Welcome back, " + username;
         }

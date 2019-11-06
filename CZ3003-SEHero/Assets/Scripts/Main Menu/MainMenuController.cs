@@ -4,8 +4,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Net;
+using System.IO;
 using System;
 using Facebook.Unity;
+using UnityEngine.Networking;
 
 [System.Serializable]
 public class MainMenuController : MonoBehaviour
@@ -38,6 +40,15 @@ public class MainMenuController : MonoBehaviour
     [SerializeField]
     private Button[] levelButtons;
 
+    [SerializeField]
+    private Text totalScore;
+
+    [SerializeField]
+    private Text currentWorld;
+
+    [SerializeField]
+    private Text currentLevel;
+
     public InputField codeText;
 
     private int world = 1, numOfWorlds = 5;
@@ -58,12 +69,14 @@ public class MainMenuController : MonoBehaviour
 
     void Start()
 	{
-        if(LoginManager.isLoggedIn)
-		    m_state = MenuState.Game;
+        if (LoginManager.isLoggedIn)
+        {
+            StartCoroutine(dbManager.GetCurrentProgress(PlayerPrefs.GetString("username"), GetCurrentProgressCallback));
+            StartCoroutine(dbManager.GetTotalScore(PlayerPrefs.GetString("username"), GetTotalScoreCallback));
+            m_state = MenuState.Game;
+        }
         else
             m_state = MenuState.Login;
-
-        StartCoroutine(dbManager.GetCurrentProgress(PlayerPrefs.GetString("username"), GetCurrentProgressCallback));
     }
 
 	public void ChangeState(int newState)
@@ -195,13 +208,85 @@ public class MainMenuController : MonoBehaviour
     }
 
     public void GenerateReport() {
-        Application.OpenURL("http://3.1.70.5/pdf.php");
+        //StartCoroutine(DownloadReport());
+        string username = PlayerPrefs.GetString("username");
+        string userType = PlayerPrefs.GetString("user_type");
+        Application.OpenURL("http://3.1.70.5/pdf.php?username=" + username + "&" + "user_type=" + userType);
+
     }
 
-    public void DownloadReport() {
-        Debug.Log("DownloadReport called");
-        System.Net.WebClient client = new WebClient();
-        client.DownloadFileAsync(new Uri("http://3.1.70.5/pdf.php"), Application.persistentDataPath + "report.pdf"); //This shit doesn't work TODO
+    public void Test()
+    {
+        //Application.OpenURL(Application.persistentDataPath + "/data/report.pdf");
+
+        try
+        {
+            AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+            AndroidJavaObject currentActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
+            AndroidJavaObject unityContext = currentActivity.Call<AndroidJavaObject>("getApplicationContext");
+
+            string packageName = unityContext.Call<string>("getPackageName");
+            string authority = packageName + ".fileprovider";
+
+            AndroidJavaClass intentObj = new AndroidJavaClass("android.content.Intent");
+            string ACTION_VIEW = intentObj.GetStatic<string>("ACTION_VIEW");
+            AndroidJavaObject intent = new AndroidJavaObject("android.content.Intent", ACTION_VIEW);
+
+            int FLAG_ACTIVITY_NEW_TASK = intentObj.GetStatic<int>("FLAG_ACTIVITY_NEW_TASK");
+            int FLAG_GRANT_READ_URI_PERMISSION = intentObj.GetStatic<int>("FLAG_GRANT_READ_URI_PERMISSION");
+
+            AndroidJavaObject fileObj = new AndroidJavaObject("java.io.File", Application.persistentDataPath + "/data/report.pdf");
+            AndroidJavaClass fileProvider = new AndroidJavaClass("android.support.v4.content.FileProvider");
+            AndroidJavaObject uri = fileProvider.CallStatic<AndroidJavaObject>("getUriForFile", unityContext, authority, fileObj);
+
+            print(uri.Call<string>("toString"));
+
+            intent.Call<AndroidJavaObject>("setDataAndType", uri, "application/pdf");
+            intent.Call<AndroidJavaObject>("addFlags", FLAG_ACTIVITY_NEW_TASK);
+            intent.Call<AndroidJavaObject>("addFlags", FLAG_GRANT_READ_URI_PERMISSION);
+            currentActivity.Call("startActivity", intent);
+
+            print("Success");
+        }
+        catch (System.Exception e)
+        {
+            print("Error: " + e.Message);
+        }
+    }
+
+    public IEnumerator DownloadReport() {
+        string URL = "http://3.1.70.5/";
+        List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
+        formData.Add(new MultipartFormDataSection("username", PlayerPrefs.GetString("username")));
+        formData.Add(new MultipartFormDataSection("user_type", PlayerPrefs.GetString("user_type")));
+
+        string filePath = Path.Combine(Application.persistentDataPath, "data");
+        filePath = Path.Combine(filePath, "report1.pdf");
+        UnityWebRequest www = UnityWebRequest.Post(URL + "pdf.php", formData);
+        www.downloadHandler = new DownloadHandlerBuffer();
+        var dh = new DownloadHandlerFile(filePath);
+        dh.removeFileOnAbort = true;
+        www.downloadHandler = dh;
+        yield return www.SendWebRequest();
+
+        if (www.isNetworkError || www.isHttpError)
+        {
+            Debug.Log(www.error);
+        }
+        else {
+
+            Debug.Log(filePath);
+
+            if (!Directory.Exists(Path.GetDirectoryName(filePath)))
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+            }
+
+            Debug.Log("OpenURL");
+            Application.OpenURL("file:///storage/emulated/0/Android/data/com.DefaultCompany.SEHero/files/data/report.pdf");
+
+            //System.IO.File.WriteAllText(filePath, www.downloadHandler.text);
+        }
     }
 
     private void FBInitCallback() 
@@ -218,27 +303,34 @@ public class MainMenuController : MonoBehaviour
 
     private void DeepLinkCallback(IAppLinkResult result)
     {
-        Debug.Log("Deeplink called");
-
         if (!String.IsNullOrEmpty(result.Url))
         {
             var start = result.Url.IndexOf("level/") + 6;
             var end = result.Url.IndexOf("?");
 
-            if (start != -1)
+            if ((start - 6) != -1)
             {
-                Debug.Log(result.Url.Substring(start, end - start));
-
                 codeText.text = result.Url.Substring(start, end - start);
                 ChangeState(10);
             }
         }
     }
 
-    private void GetCurrentProgressCallback(bool success, int worldId, int levelId) {
+    private void GetCurrentProgressCallback(bool success, int worldId, int levelId)
+    {
         if (success) {
             PlayerPrefs.SetInt("currentworld", worldId);
             PlayerPrefs.SetInt("currentlevel", levelId);
+        }
+    }
+
+    private void GetTotalScoreCallback(bool success, int score)
+    {
+        if (success)
+        {
+            currentWorld.text = PlayerPrefs.GetInt("currentworld", 1).ToString();
+            currentLevel.text = PlayerPrefs.GetInt("currentlevel", 1).ToString();
+            totalScore.text = score.ToString();
         }
     }
 }

@@ -9,14 +9,11 @@ public class DatabaseManager : MonoBehaviour
 {
     private const string URL = "http://3.1.70.5/";
 
-    public IEnumerator SendLogin(string email, string password, Action<bool, string> callback = null)
+    public IEnumerator SendLogin(string email, string password, Action<bool, string, string> callback = null)
     {
         List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
         formData.Add(new MultipartFormDataSection("email", email));
         formData.Add(new MultipartFormDataSection("password", password));
-
-        Debug.Log("email " + email);
-        Debug.Log("password " + password);
 
         UnityWebRequest www = UnityWebRequest.Post("http://3.1.70.5/login.php", formData);
         yield return www.SendWebRequest();
@@ -31,7 +28,7 @@ public class DatabaseManager : MonoBehaviour
             bool success = response["success"].AsBool;
 
             if(callback != null)
-                callback(success, response["username"]);
+                callback(success, response["username"], response["user_type"]);
         }
     }
 
@@ -207,6 +204,28 @@ public class DatabaseManager : MonoBehaviour
 
             if (callback != null)
                 callback(success, response["world_id"], response["level_id"]);
+        }
+    }
+
+    public IEnumerator GetTotalScore(string username, Action<bool, int> callback = null)
+    {
+        List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
+        formData.Add(new MultipartFormDataSection("username", username));
+
+        UnityWebRequest www = UnityWebRequest.Post(URL + "gettotalscore.php", formData);
+        yield return www.SendWebRequest();
+
+        if (www.isNetworkError || www.isHttpError)
+        {
+            Debug.Log(www.error);
+        }
+        else
+        {
+            var response = JSON.Parse(www.downloadHandler.text);
+            bool success = response["success"].AsBool;
+
+            if (callback != null)
+                callback(success, response["totalscore"]);
         }
     }
 }

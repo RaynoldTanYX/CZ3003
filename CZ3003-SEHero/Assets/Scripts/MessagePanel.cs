@@ -8,13 +8,22 @@ public class MessagePanel : MonoBehaviour
     static MessagePanel instance;
     [SerializeField]
     Text text;
-    void Start()
+    void Awake()
     {
-        instance = this;
+        if (instance != null && instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
+
         if (text == null)
             Debug.Log("MessagePanel.text is not set.");
         instance.HideMessage();
     }
+
 
     public static MessagePanel GetInstance()
     {
