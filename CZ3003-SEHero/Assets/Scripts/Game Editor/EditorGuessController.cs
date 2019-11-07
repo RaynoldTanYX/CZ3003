@@ -148,17 +148,17 @@ public class EditorGuessController : MonoBehaviour
         }
         if (data.gameData.description.Length == 0)
         {
-            errorMessage += "Description cannot be empty.";
+            errorMessage += "Description cannot be empty.\n";
         }
         foreach (QuestionValuesGuess value in data.values)
         {
             if (value.question.Length == 0)
             {
-                errorMessage += "Question #" + value.index + 1 + " cannot be empty.\n";
+                errorMessage += "Question #" + (value.index + 1) + " cannot be empty.\n";
             }
             if (value.answer.Length == 0)
             {
-                errorMessage += " Answer for question #" + value.index + 1 + " cannot be empty.\n";
+                errorMessage += "Answer for question #" + (value.index + 1) + " cannot be empty.\n";
             }
 
         }
