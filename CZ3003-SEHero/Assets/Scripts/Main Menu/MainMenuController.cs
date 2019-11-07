@@ -93,10 +93,17 @@ public class MainMenuController : MonoBehaviour
 		
         if (PlayerPrefs.GetInt("State", 0) == (int)MenuState.Level)
         {
-            world = PlayerPrefs.GetInt("worldid", 1) - 1;
             PlayerPrefs.SetInt("State", 0);
-            NextWorld();
-            ChangeState((int)MenuState.Level);
+            if (PlayerPrefs.GetInt("worldid", 1) == 0)
+            {
+                ChangeState(10);//challenge menu
+            }
+            else
+            {
+                world = PlayerPrefs.GetInt("worldid", 1) - 1;
+                NextWorld();
+                ChangeState((int)MenuState.Level);
+            }
         }
     }
 
@@ -247,6 +254,8 @@ public class MainMenuController : MonoBehaviour
         catch { };
         if (level >= 0)
         {
+            PlayerPrefs.SetInt("worldid", 0);
+            PlayerPrefs.SetInt("levelid", level);
             StartCoroutine(dbManager.GetLevel(0, level, GetLevelCallback));
         }
         else
