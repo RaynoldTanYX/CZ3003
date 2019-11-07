@@ -168,6 +168,7 @@ public class MainMenuController : MonoBehaviour
 
             int highestworld = PlayerPrefs.GetInt("currentworld", 1);
             int highestlevel = PlayerPrefs.GetInt("currentlevel", 1);
+            Debug.Log("Highest world: " + highestworld + "\nHighest Level: " + highestlevel);
             //if user picks highest world unlocked
             if (world == highestworld)
             {
@@ -181,8 +182,9 @@ public class MainMenuController : MonoBehaviour
                 }
             }
             //else if user has completed previous world
-            else if (world == highestworld + 1 && highestlevel == levelButtons.Length - 1)
+            else if (world == highestworld + 1 && highestlevel == levelButtons.Length)
             {
+                Debug.Log("User has completed previous world. Unlock first level of new world!");
                 for (int i = 0; i < levelButtons.Length; i++)
                 {
                     //unlock first level
