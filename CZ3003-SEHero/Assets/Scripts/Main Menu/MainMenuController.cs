@@ -66,18 +66,6 @@ public class MainMenuController : MonoBehaviour
     private int world = 1, numOfWorlds = 5, currentWorldValue = 1, currentLevelValue = 1, totalScoreValue = 0;
 
     private string[] worldDesc = {"Requirement Elicitation", "Use Case Diagram/Description", "UML Design Model (1)", "UML Design Model (2)", "SRS"};
-    
-    private void Awake()
-    {
-        if (!FB.IsInitialized)
-        {
-            FB.Init(FBInitCallback);
-        }
-        else
-        {
-            FB.ActivateApp();
-        }
-    }
 
     void Start()
 	{
@@ -85,6 +73,15 @@ public class MainMenuController : MonoBehaviour
         {
             StartCoroutine(dbManager.GetCurrentProgress(PlayerPrefs.GetString("username"), GetCurrentProgressCallback));
             StartCoroutine(dbManager.GetTotalScore(PlayerPrefs.GetString("username"), GetTotalScoreCallback));
+
+            if (!FB.IsInitialized)
+            {
+                FB.Init(FBInitCallback);
+            }
+            else
+            {
+                FB.ActivateApp();
+            }
 
             m_state = MenuState.Game;
         }
@@ -284,7 +281,7 @@ public class MainMenuController : MonoBehaviour
         //StartCoroutine(DownloadReport());
         string username = PlayerPrefs.GetString("username");
         string userType = PlayerPrefs.GetString("user_type");
-        Application.OpenURL("http://3.1.70.5/pdf.php?username=" + username + "&" + "user_type=" + userType);
+        Application.OpenURL(DatabaseManager.URL + "pdf.php?username=" + username + "&" + "user_type=" + userType);
 
     }
 

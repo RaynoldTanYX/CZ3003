@@ -83,7 +83,18 @@ public class Game : MonoBehaviour
     protected void SaveScoreCallback(bool success, string message) {
         Debug.Log(message);
 
-        if(success) {
+        StartCoroutine(dbManager.GetCurrentProgress(PlayerPrefs.GetString("username"), GetCurrentProgressCallback));
+
+        if (success) {
+        }
+    }
+
+    private void GetCurrentProgressCallback(bool success, int worldId, int levelId)
+    {
+        if (success)
+        {
+            PlayerPrefs.SetInt("currentworld", worldId);
+            PlayerPrefs.SetInt("currentlevel", levelId);
         }
     }
 
@@ -92,4 +103,5 @@ public class Game : MonoBehaviour
         PlayerPrefs.SetInt("State", (int)MainMenuController.MenuState.Level);
         SceneManager.LoadScene("MainMenu");
     }
+
 }

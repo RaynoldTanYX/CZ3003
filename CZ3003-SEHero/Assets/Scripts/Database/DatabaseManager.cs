@@ -7,7 +7,7 @@ using SimpleJSON;
 
 public class DatabaseManager : MonoBehaviour
 {
-    private const string URL = "http://3.1.70.5/";
+    public static string URL = "http://3.1.70.5/";
 
     public IEnumerator SendLogin(string email, string password, Action<bool, string, string, int> callback = null)
     {
@@ -27,7 +27,7 @@ public class DatabaseManager : MonoBehaviour
             var response = JSON.Parse(www.downloadHandler.text);
             bool success = response["success"].AsBool;
 
-            if(callback != null)
+            if (callback != null)
                 callback(success, response["username"], response["user_type"], response["avatar"]);
         }
     }
@@ -53,7 +53,7 @@ public class DatabaseManager : MonoBehaviour
             bool success = response["success"].AsBool;
             Debug.Log(response);
 
-            if(callback != null)
+            if (callback != null)
                 callback(success, response["message"]);
         }
     }
@@ -133,7 +133,7 @@ public class DatabaseManager : MonoBehaviour
 
             Debug.Log(response["data"]);
 
-            if(callback != null)
+            if (callback != null)
                 callback(success, response["name"], response["data"]);
         }
     }
@@ -158,7 +158,7 @@ public class DatabaseManager : MonoBehaviour
             var response = JSON.Parse(www.downloadHandler.text);
             bool success = response["success"].AsBool;
 
-            if(callback != null)
+            if (callback != null)
                 callback(success, response["message"]);
         }
     }

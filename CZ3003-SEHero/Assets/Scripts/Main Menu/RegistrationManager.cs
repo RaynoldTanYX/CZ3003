@@ -10,8 +10,8 @@ public class RegistrationManager : MonoBehaviour
     public InputField usernameField;
     public InputField passwordField;
     public InputField emailField;
-    public GameObject messagePanel;
-    public Text message;
+    public Image avatar1;
+    public Image avatar2;
     public MainMenuController mc;
 
     public DatabaseManager dbManager;
@@ -30,6 +30,27 @@ public class RegistrationManager : MonoBehaviour
 
     public void SelectAvatar(int choice) {
         avatarChoice = choice;
+
+        if (choice == 0)
+        {
+            Color c = avatar2.color;
+            c.a = 0.5f;
+            avatar2.color = c;
+
+            c = avatar1.color;
+            c.a = 1f;
+            avatar1.color = c;
+        }
+        else 
+        {
+            Color c = avatar1.color;
+            c.a = 0.5f;
+            avatar1.color = c;
+
+            c = avatar2.color;
+            c.a = 1f;
+            avatar2.color = c;
+        }
     }
 
     private void RegisterCallback(bool success, string msg) {
