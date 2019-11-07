@@ -142,6 +142,8 @@ public class EditorQuizController : MonoBehaviour
         data.values = list;
         //test cases
         string errorMessage = "";
+        if (m_questionList.Count == 0)
+            errorMessage += "There must be at least 1 question.\n";
         if (data.gameData.title.Length == 0)
         {
             errorMessage += "Title cannot be empty.\n";
